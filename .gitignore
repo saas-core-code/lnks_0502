@@ -1,0 +1,6 @@
+/node_modules
+/.next
+/out
+.DS_Store
+.env*
+node_modules/@next/swc-darwin-arm64/next-swc.darwin-arm64.node

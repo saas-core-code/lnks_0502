@@ -1,45 +1,47 @@
+// components/sections/BenefitComparisonSection.tsx
 "use client";
 
 import React from "react";
 import { motion } from "framer-motion";
+import Marquee from "react-fast-marquee";
 
 const data = [
   {
     label: "報酬還元率",
     live: "55～60％の高率還元",
     other: "平均30～40％程度",
-    description: "業界トップクラスの還元率で、あなたの頑張りをしっかり評価します"
+    description: "業界トップクラスの還元率で、あなたの頑張りをしっかり評価します",
   },
   {
     label: "対応スタッフ",
     live: "女性スタッフによる一貫サポート",
     other: "男性スタッフが中心",
-    description: "女性ならではの悩みも安心して相談できる環境です"
+    description: "女性ならではの悩みも安心して相談できる環境です",
   },
   {
     label: "税務サポート",
     live: "確定申告から経理処理まで丸ごとお任せ",
     other: "ご自身での申請が必須",
-    description: "面倒な手続きも専門スタッフがサポートします"
+    description: "面倒な手続きも専門スタッフがサポートします",
   },
   {
     label: "個室環境",
     live: "完全個室を1名様専用でご用意",
     other: "複数名でのルーム共有",
-    description: "プライバシーを完全に確保した快適な空間をご用意"
+    description: "プライバシーを完全に確保した快適な空間をご用意",
   },
   {
     label: "入店お祝い金",
     live: "ご入店いただいた全員にお祝い金を贈呈",
     other: "一部の方のみ対象",
-    description: "新しいスタートを応援する特別なウェルカム特典"
+    description: "新しいスタートを応援する特別なウェルカム特典",
   },
   {
     label: "機材・設備",
     live: "高性能カメラ／照明／防音ルームを完備",
     other: "必要最低限の機材のみ",
-    description: "プロ仕様の機材で高品質な配信環境を提供"
-  }
+    description: "プロ仕様の機材で高品質な配信環境を提供",
+  },
 ];
 
 export default function BenefitComparisonSection() {
@@ -59,43 +61,114 @@ export default function BenefitComparisonSection() {
           {data.map((item, idx) => (
             <motion.div
               key={item.label}
-              initial={{ opacity: 0, x: idx % 2 === 0 ? -20 : 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
+              initial={{
+                opacity: 0,
+                x: idx % 2 === 0 ? -100 : 100,
+                rotateY: idx % 2 === 0 ? -30 : 30,
+                scale: 0.8,
+              }}
+              whileInView={{
+                opacity: 1,
+                x: 0,
+                rotateY: 0,
+                scale: 1,
+              }}
+              transition={{
+                duration: 0.8,
+                delay: idx * 0.15,
+                type: "spring",
+                stiffness: 100,
+              }}
+              viewport={{ once: true, margin: "-100px" }}
               className="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#CDB397]"
             >
-              <div className="p-6">
-                <h3 className="text-lg font-bold mb-2 text-[#CDB397]">{item.label}</h3>
-                <p className="text-sm mb-4 text-[#474037]">{item.description}</p>
+              <motion.div
+                className="p-6"
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
+                <motion.h3
+                  className="text-lg font-bold mb-2 text-[#CDB397]"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.15 + 0.3 }}
+                >
+                  {item.label}
+                </motion.h3>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ delay: idx * 0.15 + 0.4 }}
+                  className="mb-4 overflow-hidden"
+                >
+                  <Marquee
+                    speed={30}
+                    gradient={true}
+                    gradientColor="#ffffff"
+                    gradientWidth={50}
+                  >
+                    <span className="text-base text-[#474037] px-4">
+                      {item.description}
+                    </span>
+                    <span className="text-base text-[#474037] px-4">★</span>
+                    <span className="text-base text-[#474037] px-4">
+                      {item.description}
+                    </span>
+                    <span className="text-base text-[#474037] px-4">★</span>
+                  </Marquee>
+                </motion.div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <motion.div
                     className="rounded-xl p-4 bg-[rgba(205,179,151,0.1)]"
-                    whileHover={{ scale: 1.02 }}
-                    animate={{
-                      scale: [1, 1.02, 1],
-                      transition: { 
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }
+                    whileHover={{
+                      scale: 1.05,
+                      transition: { type: "spring", stiffness: 300 },
                     }}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: idx * 0.15 + 0.5 }}
                   >
-                    <motion.div 
+                    <motion.div
                       className="flex items-center gap-2 mb-3"
                       animate={{
-                        y: [0, -2, 0],
+                        y: [0, -4, 0],
                         transition: {
-                          duration: 1.5,
+                          duration: 2,
                           repeat: Infinity,
-                          ease: "easeInOut"
-                        }
+                          ease: "easeInOut",
+                        },
                       }}
                     >
-                      <span className="font-bold text-[#CDB397] text-xl">◎</span>
-                      <span className="text-base font-bold text-[#474037]">Live Links</span>
+                      <motion.span
+                        className="font-bold text-[#CDB397] text-2xl"
+                        animate={{
+                          rotate: [0, 10, -10, 0],
+                          scale: [1, 1.2, 1],
+                          transition: {
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          },
+                        }}
+                      >
+                        ◎
+                      </motion.span>
+                      <motion.span
+                        className="font-serif italic font-bold tracking-wide text-[#B3927A] text-base"
+                        animate={{
+                          scale: [1, 1.05, 1],
+                          transition: {
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          },
+                        }}
+                      >
+                        Live-Links
+                      </motion.span>
                     </motion.div>
-                    <motion.p 
+                    <motion.p
                       className="text-base font-medium text-[#474037] leading-relaxed"
                       animate={{
                         opacity: [0.8, 1, 0.8],
@@ -103,23 +176,32 @@ export default function BenefitComparisonSection() {
                         transition: {
                           duration: 2,
                           repeat: Infinity,
-                          ease: "easeInOut"
-                        }
+                          ease: "easeInOut",
+                        },
                       }}
                     >
                       {item.live}
                     </motion.p>
                   </motion.div>
 
-                  <div className="bg-gray-50 rounded-xl p-4">
+                  <motion.div
+                    className="bg-gray-50 rounded-xl p-4"
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: idx * 0.15 + 0.6 }}
+                  >
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="text-gray-400 font-bold text-lg">△</span>
-                      <span className="text-sm font-medium text-[#474037]">他社</span>
+                      <span className="text-gray-400 font-bold text-lg">
+                        △
+                      </span>
+                      <span className="text-sm font-medium text-[#474037]">
+                        他社
+                      </span>
                     </div>
                     <p className="text-sm text-[#474037]">{item.other}</p>
-                  </div>
+                  </motion.div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>

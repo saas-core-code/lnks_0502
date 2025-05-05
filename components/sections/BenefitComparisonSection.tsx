@@ -44,59 +44,79 @@ const data = [
 
 export default function BenefitComparisonSection() {
   return (
-    <section className="w-full py-16 bg-white">
-      <div className="container mx-auto px-4">
-        <motion.h2 
+    <section className="w-full py-16 bg-white overflow-x-hidden">
+      <div className="w-full px-4 md:container md:mx-auto">
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-3xl font-bold text-center mb-12"
         >
-          <span style={{ color: "#CDB397" }}>
-            選ばれる理由
-          </span>
+          <span className="text-[#CDB397]">選ばれる理由</span>
         </motion.h2>
 
         <div className="max-w-4xl mx-auto space-y-6">
           {data.map((item, idx) => (
             <motion.div
               key={item.label}
-              initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50 }}
+              initial={{ opacity: 0, x: idx % 2 === 0 ? -20 : 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className="bg-white rounded-2xl shadow-lg overflow-hidden"
-              style={{ borderColor: "#CDB397", borderWidth: "1px" }}
+              className="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#CDB397]"
             >
               <div className="p-6">
-                <h3 className="text-lg font-bold mb-2" style={{ color: "#CDB397" }}>{item.label}</h3>
-                <p className="text-sm mb-4" style={{ color: "#474037" }}>{item.description}</p>
-                
+                <h3 className="text-lg font-bold mb-2 text-[#CDB397]">{item.label}</h3>
+                <p className="text-sm mb-4 text-[#474037]">{item.description}</p>
+
                 <div className="grid grid-cols-2 gap-4">
-                  <motion.div 
-                    className="rounded-xl p-4"
-                    style={{ backgroundColor: "rgba(205, 179, 151, 0.1)" }}
-                    animate={{ 
+                  <motion.div
+                    className="rounded-xl p-4 bg-[rgba(205,179,151,0.1)]"
+                    whileHover={{ scale: 1.02 }}
+                    animate={{
                       scale: [1, 1.02, 1],
-                      transition: {
+                      transition: { 
                         duration: 2,
                         repeat: Infinity,
                         ease: "easeInOut"
                       }
                     }}
                   >
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="font-bold" style={{ color: "#CDB397" }}>◎</span>
-                      <span className="text-sm font-medium" style={{ color: "#474037" }}>Live Links</span>
-                    </div>
-                    <p className="text-sm" style={{ color: "#474037" }}>{item.live}</p>
+                    <motion.div 
+                      className="flex items-center gap-2 mb-3"
+                      animate={{
+                        y: [0, -2, 0],
+                        transition: {
+                          duration: 1.5,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }
+                      }}
+                    >
+                      <span className="font-bold text-[#CDB397] text-xl">◎</span>
+                      <span className="text-base font-bold text-[#474037]">Live Links</span>
+                    </motion.div>
+                    <motion.p 
+                      className="text-base font-medium text-[#474037] leading-relaxed"
+                      animate={{
+                        opacity: [0.8, 1, 0.8],
+                        scale: [1, 1.02, 1],
+                        transition: {
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }
+                      }}
+                    >
+                      {item.live}
+                    </motion.p>
                   </motion.div>
-                  
+
                   <div className="bg-gray-50 rounded-xl p-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-gray-400 font-bold">△</span>
-                      <span className="text-sm font-medium" style={{ color: "#474037" }}>他社</span>
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-gray-400 font-bold text-lg">△</span>
+                      <span className="text-sm font-medium text-[#474037]">他社</span>
                     </div>
-                    <p className="text-sm" style={{ color: "#474037" }}>{item.other}</p>
+                    <p className="text-sm text-[#474037]">{item.other}</p>
                   </div>
                 </div>
               </div>

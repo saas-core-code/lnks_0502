@@ -8,8 +8,6 @@ import LineApplyBanner from '@/components/banners/LineApplyBanner';
 import IncomeStatisticsSection from '@/components/sections/IncomeStatisticsSection';
 import IncomeStatisticsSection_2 from '@/components/sections/IncomeStatisticsSection_2';
 import UserVoicesSection from '@/components/sections/UserVoicesSection';
-import ChoiceReasonsSection from '@/components/sections/ChoiceReasonsSection';
-import ChoiceReasonsSection_2 from '@/components/sections/ChoiceReasonsSection_2';
 import BenefitComparisonSection from '@/components/sections/BenefitComparisonSection';
 import FaqSection from '@/components/sections/FaqSection';
 import ApplicationFlowSection from '@/components/sections/ApplicationFlowSection';
@@ -31,8 +29,6 @@ export default function Home() {
       <IncomeStatisticsSection />
       <IncomeStatisticsSection_2 />
       <UserVoicesSection />
-      <ChoiceReasonsSection />
-      <ChoiceReasonsSection_2 />
       <WelcomeBonusBanner />
       <BenefitComparisonSection />
       <SnsLinksBanner />

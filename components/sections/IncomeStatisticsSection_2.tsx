@@ -44,10 +44,10 @@ function SpinningNumber({ value, unit }: { value: number; unit: string }) {
       }}
       className="flex items-baseline"
     >
-      <motion.span className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+      <motion.span className="text-4xl font-bold font-rounded bg-clip-text text-transparent bg-gradient-to-r from-[#ccb296] to-[#ffc4a3]">
         {rounded}
       </motion.span>
-      <span className="text-xl ml-1 text-gray-600">{unit}</span>
+      <span className="text-xl ml-1 text-gray-600 font-rounded">{unit}</span>
     </motion.div>
   );
 }
@@ -59,41 +59,41 @@ export default function IncomeStatisticsSection_2() {
       label: "月間利用者数",
       value: 1234,
       unit: "人",
-      color: "#FF6B81",
+      color: "#ccb296",
       direction: "right",
-      gradient: "from-pink-500 to-red-500"
+      gradient: "from-[#ccb296] to-[#ffc4a3]"
     },
     {
       icon: Clock,
       label: "平均勤務時間",
       value: 45,
       unit: "時間",
-      color: "#82AAFF",
+      color: "#ffc4a3",
       direction: "left",
-      gradient: "from-blue-500 to-cyan-500"
+      gradient: "from-[#ffc4a3] to-[#fefce8]"
     },
     {
       icon: DollarSign,
       label: "平均月収",
       value: 35,
       unit: "万円",
-      color: "#C3E88D",
+      color: "#fefce8",
       direction: "right",
-      gradient: "from-green-500 to-emerald-500"
+      gradient: "from-[#fefce8] to-[#d8debf]"
     },
     {
       icon: Award,
       label: "満足度",
       value: 98,
       unit: "%",
-      color: "#FFB6C1",
+      color: "#d8debf",
       direction: "left",
-      gradient: "from-purple-500 to-pink-500"
+      gradient: "from-[#d8debf] to-[#ccb296]"
     }
   ];
 
   return (
-    <section className="w-full bg-gradient-to-b from-white to-pink-50 overflow-hidden">
+    <section className="w-full bg-[#fefce8] overflow-hidden pb-[20px]">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -128,7 +128,7 @@ export default function IncomeStatisticsSection_2() {
                 className="bg-white rounded-2xl p-6 shadow-lg relative overflow-hidden transform-gpu hover:shadow-2xl transition-all duration-300"
               >
                 {/* グラデーションボーダー */}
-                <div className="absolute inset-0 p-[2px] rounded-2xl bg-gradient-to-r from-pink-500/20 to-purple-500/20">
+                <div className="absolute inset-0 p-[2px] rounded-2xl bg-gradient-to-r from-[#ccb296]/20 to-[#ffc4a3]/20">
                   <div className="w-full h-full bg-white rounded-2xl" />
                 </div>
 
@@ -153,10 +153,10 @@ export default function IncomeStatisticsSection_2() {
                         repeat: Infinity,
                         repeatDelay: 1
                       }}
-                      className="w-2 h-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-500"
+                      className={`w-2 h-2 rounded-full bg-gradient-to-r ${card.gradient}`}
                     />
                   </div>
-                  <h3 className="text-sm font-medium text-gray-600 mb-2">
+                  <h3 className="text-sm font-medium text-gray-600 mb-2 font-rounded">
                     {card.label}
                   </h3>
                   <SpinningNumber value={card.value} unit={card.unit} />

@@ -1,12 +1,26 @@
 "use client";
+import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
-import React from "react";
-import { Clock } from "lucide-react";
-import { motion } from "framer-motion";
-import Head from "next/head";
-import Image from "next/image";
+// タイムラインのデータの型定義
+interface TimelineItem {
+  time: string;
+  label: string;
+  labelEn: string;
+  image: string;
+  description: string;
+  alt: string;
+}
 
-const timelineItems = [
+// TimelineCard の Props 型定義
+interface TimelineCardProps {
+  data: TimelineItem;
+  index: number;
+}
+
+// タイムラインのデータ
+const timelineData: TimelineItem[] = [
   { 
     time: "20:30", 
     label: "出勤", 
@@ -73,207 +87,171 @@ const timelineItems = [
   }
 ];
 
-export default function JoinUsSection() {
-  const srOnlyStyle: React.CSSProperties = {
-    position: "absolute",
-    width: "1px",
-    height: "1px",
-    padding: "0",
-    margin: "-1px",
-    overflow: "hidden",
-    clip: "rect(0px, 0px, 0px, 0px)",
-    whiteSpace: "nowrap",
-    borderWidth: "0"
+// 1枚のカードコンポーネント
+const TimelineCard: React.FC<TimelineCardProps> = ({ data, index }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const scale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
+  
+  // 時計のアニメーション用の状態
+  const [isBlinking, setIsBlinking] = useState<boolean>(true);
+  
+  // コロンの点滅を制御
+  useEffect(() => {
+    const blinkInterval = setInterval(() => {
+      setIsBlinking(prev => !prev);
+    }, 500);
+    
+    return () => clearInterval(blinkInterval);
+  }, []);
+
+  // オレンジカードのアニメーション設定
+  const orangeCardVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 50,
+      scale: 0.9,
+      filter: "blur(8px)"
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      scale: 1,
+      filter: "blur(0px)",
+      transition: { 
+        type: "spring", 
+        stiffness: 50, 
+        damping: 10,
+        delay: 0.7, // 他の要素の後に表示
+        duration: 0.8
+      }
+    }
   };
 
-  const howToSchema = {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": "Live-Linksでの1日の流れ",
-    "description": "Live-Linksで働く女性ライバーの1日のスケジュールと流れを詳しく説明します。出勤から退勤までの各ステップを紹介。",
-    "step": timelineItems.map((item, index) => ({
-      "@type": "HowToStep",
-      "position": index + 1,
-      "name": item.label,
-      "text": item.description,
-      "image": {
-        "@type": "ImageObject",
-        "url": item.image
-      }
-    })),
-    "totalTime": "PT9H"
-  };
-
-  const placeSchema = {
-    "@context": "https://schema.org",
-    "@type": "Place",
-    "name": "Live-Links",
-    "description": "女性ライバー向けの安全で快適な配信環境を提供する施設",
-    "amenityFeature": [
-      {
-        "@type": "LocationFeatureSpecification",
-        "name": "防音個室",
-        "value": true
-      },
-      {
-        "@type": "LocationFeatureSpecification",
-        "name": "衣装部屋",
-        "value": true
-      },
-      {
-        "@type": "LocationFeatureSpecification",
-        "name": "メイクサービス",
-        "value": true
-      },
-      {
-        "@type": "LocationFeatureSpecification",
-        "name": "24時間営業",
-        "value": true
-      },
-      {
-        "@type": "LocationFeatureSpecification",
-        "name": "バスルーム完備",
-        "value": true
-      }
-    ]
-  };
+  // カードの出現に遅延を追加（順番に表示）
+  const cardDelay = index * 0.1;
 
   return (
-    <>
-      <Head>
-        <title>Live-Links｜女性ライバー1日の流れ | 未経験からでも安心して働ける環境</title>
-        <meta name="description" content="Live-Linksで働く女性ライバーの1日をご紹介。出勤から退勤まで充実の環境とサポート体制で、未経験からでも安心して始められます。衣装・メイク完備で身バレ対策も万全。" />
-        <meta property="og:title" content="Live-Links｜女性ライバー1日の流れ | 未経験からでも安心して働ける環境" />
-        <meta property="og:description" content="Live-Linksで働く女性ライバーの1日をご紹介。安全な環境で高収入を目指せます。" />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="/images/join-us/test1.jpg" />
-        <link rel="canonical" href="https://live-links.example.com/join-us" />
-      </Head>
-
-      <section id="daily-schedule" className="w-full pt-[10px] pb-[60px]" style={{ background: `repeating-linear-gradient(to bottom, #FFF5F9 0px, #FFF5F9 20px, #FCDDE4 20px, #FCDDE4 40px)` }}>
-        <h2 id="schedule-title" className="text-3xl font-bold text-center my-6 fancy-title">女性ライバーの1日の流れ</h2>
-
-        <div className="container mx-auto px-2 sm:px-4">
-          <div className="relative flex justify-center mb-8">
-            <figure>
-              <Image 
-                src="/images/join-us/test1.jpg" 
-                alt="Live-Linksライバーの1日の流れ紹介" 
-                className="w-full max-w-2xl rounded-2xl shadow-md" 
-                aria-labelledby="schedule-title"
-                width={1200}
-                height={800}
-                priority
-              />
-              <figcaption className="sr-only">Live-Linksでの女性ライバーの1日の流れを紹介する画像です</figcaption>
-            </figure>
-          </div>
-
-          <article className="relative flex flex-col items-center space-y-8">
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(placeSchema) }} />
-
-            <p className="text-lg text-center max-w-3xl mx-auto mb-8">
-              Live-Linksでの女性ライバーの1日をご紹介します。未経験からでも安心の環境で、快適に働きながら高収入を目指せます。
-            </p>
-
-            <nav aria-label="タイムラインナビゲーション" className="hidden sm:flex justify-center w-full mb-6">
-              <ul className="flex flex-wrap justify-center gap-4">
-                {timelineItems.map((item, idx) => (
-                  <li key={`nav-${idx}`}>
-                    <a href={`#step-${idx+1}`} className="inline-block px-3 py-1 bg-white rounded-full text-sm font-medium text-pink-500 border border-pink-300 hover:bg-pink-50 transition-colors">
-                      {item.time} {item.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-
-            {timelineItems.map((item, idx) => (
-              <motion.section
-                id={`step-${idx+1}`}
-                key={idx}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
+    <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 py-8">
+      {/* カード全体 */}
+      <div className="relative flex flex-col">
+        {/* サーモンピンクの左端バー */}
+        <motion.div 
+          initial={{ height: 0 }}
+          whileInView={{ height: "auto" }}
+          transition={{ duration: 0.5, delay: cardDelay }}
+          className="absolute left-0 top-2 bottom-2 w-6 bg-[#FAD4C0] rounded-l-xl" 
+        />
+        
+        {/* カード本体 */}
+        <motion.div
+          ref={ref}
+          style={{ scale, opacity }}
+          initial={{ y: 100, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ type: "spring", stiffness: 100, damping: 20, delay: cardDelay }}
+          className="ml-6 bg-white rounded-xl shadow-lg overflow-hidden"
+        >
+          <div className="p-6">
+            <div className="flex flex-col sm:flex-row gap-6">
+              {/* 画像 */}
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                className="relative flex flex-col items-center w-full max-w-4xl"
-                aria-labelledby={`timeline-heading-${idx}`}
+                transition={{ type: "spring", stiffness: 100, delay: 0.3 + cardDelay }}
+                className="w-full sm:w-2/5 h-48 rounded-xl overflow-hidden shadow-md"
               >
-                <div className="relative bg-white rounded-2xl shadow-md p-2 w-full">
-                  <div className="absolute top-0 right-0 w-32 h-32">
-                    <div className="triangle-stripe-accent w-full h-full" aria-hidden="true" />
-                  </div>
-                  <div className="absolute bottom-0 left-0 w-32 h-32">
-                    <div className="triangle-stripe-accent triangle-stripe-accent--bottom-left w-full h-full" aria-hidden="true" />
-                  </div>
-
-                  <div className={`relative rounded-2xl p-6 ${item.label === '配信＆休憩' ? 'border border-pink-200' : 'border-2 border-dashed border-pink-300'}`}>
-                    <div className="flex items-start gap-4 mb-2">
-                      <div className="flex-shrink-0 bg-white border-2 border-pink-200 rounded-full w-16 h-16 flex flex-col items-center justify-center shadow-md">
-                        <Clock className="text-pink-300 w-4 h-4 mb-1" aria-hidden="true" />
-                        <time dateTime={`PT${item.time.replace(':', 'H')}M`} className="text-[#FF6B81] text-sm font-bold">{item.time}</time>
-                      </div>
-                      <div className="flex-grow flex flex-col items-center justify-center">
-                        <h3 id={`timeline-heading-${idx}`} className="text-2xl font-bold leading-tight tracking-wide text-center fancy-title">
-                          {item.label}
-                        </h3>
-                        <span className="mt-1 fancy-en-title" lang="en">
-                          {item.labelEn}
-                        </span>
-                      </div>
-                      <div className="flex-shrink-0 w-16"></div>
-                    </div>
-
-                    <div className="border-t border-pink-200 my-4" aria-hidden="true" />
-
-                    <div className="flex flex-col md:flex-row gap-6">
-                      <figure className="flex-1">
-                        <Image 
-                          src={item.image} 
-                          alt={item.alt} 
-                          className="rounded-lg w-full shadow-md" 
-                          loading="lazy"
-                          width={600}
-                          height={400}
-                        />
-                      </figure>
-                      <motion.div 
-                        className="flex-1"
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ 
-                          duration: 0.8,
-                          ease: [0.34, 1.56, 0.64, 1],
-                          delay: 0.2
-                        }}
-                        viewport={{ once: true }}
-                      >
-                        <div className="bg-white rounded-lg p-4 shadow-lg border border-pink-200 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-                          <motion.p
-                            className="text-sm text-gray-700 leading-relaxed"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ 
-                              duration: 0.6,
-                              ease: "easeOut",
-                              delay: 0.4
-                            }}
-                            viewport={{ once: true }}
-                          >
-                            {item.description}
-                          </motion.p>
-                        </div>
-                      </motion.div>
-                    </div>
-                  </div>
-                </div>
-              </motion.section>
-            ))}
-          </article>
-        </div>
-      </section>
-    </>
+                <Image
+                  src={data.image}
+                  alt={data.alt}
+                  width={800}
+                  height={600}
+                  className="w-full h-full object-cover"
+                />
+              </motion.div>
+              
+              {/* テキスト情報 */}
+              <div className="flex flex-col justify-center flex-1">
+                {/* 時間表示 */}
+                <motion.div 
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ type: "spring", stiffness: 100, delay: 0.4 + cardDelay }}
+                  className="flex items-baseline mb-2"
+                >
+                  <motion.span
+                    className="text-3xl font-serif italic font-bold text-[#294460]"
+                    animate={{ 
+                      scale: [1, 1.05, 1],
+                      y: [0, -2, 0]
+                    }}
+                    transition={{ 
+                      repeat: Infinity, 
+                      duration: 4,
+                      ease: "easeInOut"
+                    }}
+                  >
+                    {data.time.split(":")[0]}
+                    <span className={`mx-1 transition-opacity duration-200 ${isBlinking ? 'opacity-100' : 'opacity-30'}`}>:</span>
+                    {data.time.split(":")[1]}
+                  </motion.span>
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ type: "spring", stiffness: 100, delay: 0.5 + cardDelay }}
+                >
+                  <h3 className="text-lg font-bold text-[#294460]">{data.label}</h3>
+                  <span className="text-sm uppercase tracking-wide text-[#294460]/70 mb-4">{data.labelEn}</span>
+                </motion.div>
+                
+                {/* 説明文 - ふぁ〜と下から出てくるアニメーション */}
+                <motion.div
+                  variants={orangeCardVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.7 + cardDelay }}
+                  className="text-sm p-4 rounded-xl text-white overflow-hidden mt-4"
+                  style={{ background: 'linear-gradient(135deg, #ffc4a3 0%, #ffb391 100%)' }}
+                >
+                  <p>{data.description}</p>
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </div>
   );
-}
+};
+
+// 全体のタイムラインコンポーネント
+const Timeline: React.FC = () => {
+  return (
+    <div className="py-8">
+      <h2 className="text-3xl font-bold text-center text-[#294460] mb-12">1日のスケジュール</h2>
+      
+      <div className="relative">
+        {/* 縦のタイムラインライン */}
+        <div className="absolute left-3 top-8 bottom-0 w-0.5 bg-[#FAD4C0] z-0"></div>
+        
+        {/* カード */}
+        {timelineData.map((item, index) => (
+          <TimelineCard key={index} data={item} index={index} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Timeline;

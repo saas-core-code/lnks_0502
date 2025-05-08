@@ -9,36 +9,35 @@ const data = [
   {
     label: "報酬還元率",
     live: "55～60％の高率還元",
+    liveHighlight: "55～60％",
     other: "平均30～40％程度",
     description: "業界トップクラスの還元率で、あなたの頑張りをしっかり評価します",
   },
   {
     label: "対応スタッフ",
     live: "女性スタッフによる一貫サポート",
+    liveHighlight: "女性スタッフ",
     other: "男性スタッフが中心",
     description: "女性ならではの悩みも安心して相談できる環境です",
   },
   {
     label: "税務サポート",
     live: "確定申告から経理処理まで丸ごとお任せ",
+    liveHighlight: "丸ごとお任せ",
     other: "ご自身での申請が必須",
     description: "面倒な手続きも専門スタッフがサポートします",
   },
   {
     label: "個室環境",
     live: "完全個室を1名様専用でご用意",
+    liveHighlight: "1名様専用",
     other: "複数名でのルーム共有",
     description: "プライバシーを完全に確保した快適な空間をご用意",
   },
   {
-    label: "入店お祝い金",
-    live: "ご入店いただいた全員にお祝い金を贈呈",
-    other: "一部の方のみ対象",
-    description: "新しいスタートを応援する特別なウェルカム特典",
-  },
-  {
     label: "機材・設備",
     live: "高性能カメラ／照明／防音ルームを完備",
+    liveHighlight: "高性能",
     other: "必要最低限の機材のみ",
     description: "プロ仕様の機材で高品質な配信環境を提供",
   },
@@ -46,16 +45,30 @@ const data = [
 
 export default function BenefitComparisonSection() {
   return (
-    <section className="w-full py-16 bg-white overflow-x-hidden">
+    <section className="w-full py-16 overflow-x-hidden relative" style={{
+      backgroundImage: `
+        linear-gradient(0deg, #f4f6e9 1px, transparent 1px),
+        linear-gradient(90deg, #f4f6e9 1px, transparent 1px),
+        linear-gradient(0deg, #f4f6e9 0.5px, transparent 0.5px),
+        linear-gradient(90deg, #f4f6e9 0.5px, transparent 0.5px)
+      `,
+      backgroundSize: '30px 30px, 30px 30px, 6px 6px, 6px 6px',
+      backgroundColor: 'white'
+    }}>
       <div className="w-full px-4 md:container md:mx-auto">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl font-bold text-center mb-12"
-        >
-          <span className="text-[#CDB397]">選ばれる理由</span>
-        </motion.h2>
+        {/* ヘッダーセクション - 見出しと画像を横に配置 */}
+        <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-6">
+          <h2 className="text-3xl font-bold text-[#4a4a4a]">選ばれる理由</h2>
+          
+          <div className="w-full md:w-1/3">
+            <div className="rounded-2xl shadow-lg overflow-hidden">
+              <div className="bg-[#ccb296] p-6 text-center">
+                <p className="text-lg font-medium text-white">Live-Links</p>
+                <p className="text-sm text-white mt-2">アナタの魅力を最大限に引き出すサポート</p>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div className="max-w-4xl mx-auto space-y-6">
           {data.map((item, idx) => (
@@ -169,7 +182,7 @@ export default function BenefitComparisonSection() {
                       </motion.span>
                     </motion.div>
                     <motion.p
-                      className="text-base font-medium text-[#474037] leading-relaxed"
+                      className="text-xs font-medium text-[#474037] leading-relaxed"
                       animate={{
                         opacity: [0.8, 1, 0.8],
                         scale: [1, 1.02, 1],
@@ -180,7 +193,18 @@ export default function BenefitComparisonSection() {
                         },
                       }}
                     >
-                      {item.live}
+                      {/* 強調したい単語だけを大きくして色を変える。それ以外は小さく */}
+                      {item.liveHighlight && item.live.includes(item.liveHighlight) ? (
+                        <>
+                          {item.live.split(item.liveHighlight)[0]}
+                          <span className="text-lg font-bold text-[#474037] underline decoration-wavy decoration-[#474037] decoration-1 underline-offset-4">
+                            {item.liveHighlight}
+                          </span>
+                          {item.live.split(item.liveHighlight)[1]}
+                        </>
+                      ) : (
+                        item.live
+                      )}
                     </motion.p>
                   </motion.div>
 
@@ -194,11 +218,11 @@ export default function BenefitComparisonSection() {
                       <span className="text-gray-400 font-bold text-lg">
                         △
                       </span>
-                      <span className="text-sm font-medium text-[#474037]">
+                      <span className="text-xs font-medium text-[#474037]">
                         他社
                       </span>
                     </div>
-                    <p className="text-sm text-[#474037]">{item.other}</p>
+                    <p className="text-xs text-[#474037]">{item.other}</p>
                   </motion.div>
                 </div>
               </motion.div>

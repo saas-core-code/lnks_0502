@@ -52,24 +52,31 @@ export default function ApplicationFlowSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 1000));
     setIsSubmitting(false);
   };
 
   return (
-    <section className="w-full py-16" style={{ backgroundColor: '#FAF7F5' }}>
-      <div className="container mx-auto px-4 max-w-2xl">
+    <section 
+      className="w-full py-16 relative" 
+      style={{
+        backgroundImage: "url('/images/application-flow/ApplicationFlowSection.png')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
+      <div className="container mx-auto px-4 max-w-2xl relative z-10">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl font-bold text-gray-800 relative inline-block">
+          <h2 className="text-3xl font-bold text-[#4a4a4a] relative inline-block">
             <span className="relative z-10">応募フォーム</span>
             <motion.span
-              className="absolute -right-8 -top-6 text-pink-400"
+              className="absolute -right-8 -top-6 text-[#ccb296]"
               animate={{ rotate: [0, 15, -15, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
@@ -79,26 +86,26 @@ export default function ApplicationFlowSection() {
         </motion.div>
         
         <motion.form
-          className="space-y-8 bg-white p-[33px] rounded-2xl shadow-lg border border-pink-100"
+          className="space-y-8 bg-white/95 backdrop-blur-sm p-[33px] rounded-2xl shadow-lg border border-[#ccb296]"
           onSubmit={handleSubmit}
         >
           <div className="space-y-6">
             <motion.div {...fadeInUp} className="group">
               <Label htmlFor="name" className="inline-flex items-center space-x-2">
-                <Heart size={16} className="text-pink-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <Heart size={16} className="text-[#ccb296] opacity-0 group-hover:opacity-100 transition-opacity" />
                 <span>お名前</span>
               </Label>
               <Input
                 id="name"
                 placeholder="山田 花子"
                 required
-                className="transition-all duration-300 border-pink-100 focus:border-pink-300 focus:ring-pink-200"
+                className="transition-all duration-300 border-[#ccb296] focus:border-[#ffc4a3] focus:ring-[#ffc4a3]/20"
               />
             </motion.div>
 
             <motion.div {...fadeInUp} className="group">
               <Label htmlFor="age" className="inline-flex items-center space-x-2">
-                <Star size={16} className="text-pink-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <Star size={16} className="text-[#ccb296] opacity-0 group-hover:opacity-100 transition-opacity" />
                 <span>年齢</span>
               </Label>
               <Input
@@ -106,13 +113,13 @@ export default function ApplicationFlowSection() {
                 type="number"
                 placeholder="25"
                 required
-                className="transition-all duration-300 border-pink-100 focus:border-pink-300 focus:ring-pink-200"
+                className="transition-all duration-300 border-[#ccb296] focus:border-[#ffc4a3] focus:ring-[#ffc4a3]/20"
               />
             </motion.div>
 
             <motion.div {...fadeInUp} className="group">
               <Label htmlFor="phone" className="inline-flex items-center space-x-2">
-                <Star size={16} className="text-pink-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <Star size={16} className="text-[#ccb296] opacity-0 group-hover:opacity-100 transition-opacity" />
                 <span>電話番号</span>
               </Label>
               <Input
@@ -120,13 +127,13 @@ export default function ApplicationFlowSection() {
                 type="tel"
                 placeholder="090-1234-5678"
                 required
-                className="transition-all duration-300 border-pink-100 focus:border-pink-300 focus:ring-pink-200"
+                className="transition-all duration-300 border-[#ccb296] focus:border-[#ffc4a3] focus:ring-[#ffc4a3]/20"
               />
             </motion.div>
 
             <motion.div {...fadeInUp} className="group">
               <Label htmlFor="email" className="inline-flex items-center space-x-2">
-                <Star size={16} className="text-pink-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <Star size={16} className="text-[#ccb296] opacity-0 group-hover:opacity-100 transition-opacity" />
                 <span>メールアドレス</span>
               </Label>
               <Input
@@ -134,17 +141,17 @@ export default function ApplicationFlowSection() {
                 type="email"
                 placeholder="example@mail.com"
                 required
-                className="transition-all duration-300 border-pink-100 focus:border-pink-300 focus:ring-pink-200"
+                className="transition-all duration-300 border-[#ccb296] focus:border-[#ffc4a3] focus:ring-[#ffc4a3]/20"
               />
             </motion.div>
 
             <motion.div {...fadeInUp} className="group">
               <Label className="inline-flex items-center space-x-2">
-                <Star size={16} className="text-pink-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <Star size={16} className="text-[#ccb296] opacity-0 group-hover:opacity-100 transition-opacity" />
                 <span>ご希望の勤務地</span>
               </Label>
               <Select>
-                <SelectTrigger className="border-pink-100 focus:border-pink-300 focus:ring-pink-200">
+                <SelectTrigger className="border-[#ccb296] focus:border-[#ffc4a3] focus:ring-[#ffc4a3]/20">
                   <SelectValue placeholder="勤務地を選択してください" />
                 </SelectTrigger>
                 <SelectContent>
@@ -159,16 +166,16 @@ export default function ApplicationFlowSection() {
 
             <motion.div {...fadeInUp} className="space-y-2 group">
               <Label className="inline-flex items-center space-x-2">
-                <Star size={16} className="text-pink-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <Star size={16} className="text-[#ccb296] opacity-0 group-hover:opacity-100 transition-opacity" />
                 <span>チャット経験</span>
               </Label>
               <RadioGroup defaultValue="no" className="flex space-x-4">
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="yes" id="exp-yes" className="text-pink-400" />
+                  <RadioGroupItem value="yes" id="exp-yes" className="text-[#ccb296]" />
                   <Label htmlFor="exp-yes">あり</Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="no" id="exp-no" className="text-pink-400" />
+                  <RadioGroupItem value="no" id="exp-no" className="text-[#ccb296]" />
                   <Label htmlFor="exp-no">なし</Label>
                 </div>
               </RadioGroup>
@@ -176,7 +183,7 @@ export default function ApplicationFlowSection() {
 
             <motion.div {...fadeInUp} className="space-y-4 group">
               <Label className="inline-flex items-center space-x-2">
-                <CalendarIcon size={16} className="text-pink-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <CalendarIcon size={16} className="text-[#ccb296] opacity-0 group-hover:opacity-100 transition-opacity" />
                 <span>ご希望の面接日時</span>
               </Label>
               <div className="calendar-container">
@@ -192,21 +199,21 @@ export default function ApplicationFlowSection() {
                   }}
                   modifiers={{
                     special: (date) => {
-                      const specialDates = [15, 20, 25]; // 特別な日を設定
+                      const specialDates = [15, 20, 25];
                       return specialDates.includes(date.getDate());
                     }
                   }}
                   modifiersStyles={{
                     special: {
                       fontWeight: 'bold',
-                      border: '2px solid #F472B6',
+                      border: '2px solid #ccb296',
                       borderRadius: '50%'
                     }
                   }}
                 />
               </div>
               <Select>
-                <SelectTrigger className="border-pink-100 focus:border-pink-300 focus:ring-pink-200">
+                <SelectTrigger className="border-[#ccb296] focus:border-[#ffc4a3] focus:ring-[#ffc4a3]/20">
                   <SelectValue placeholder="希望時間を選択してください" />
                 </SelectTrigger>
                 <SelectContent>
@@ -221,16 +228,16 @@ export default function ApplicationFlowSection() {
 
             <motion.div {...fadeInUp} className="space-y-2 group">
               <Label className="inline-flex items-center space-x-2">
-                <Star size={16} className="text-pink-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <Star size={16} className="text-[#ccb296] opacity-0 group-hover:opacity-100 transition-opacity" />
                 <span>ご希望の連絡方法</span>
               </Label>
               <RadioGroup defaultValue="email" className="flex space-x-4">
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="email" id="contact-email" className="text-pink-400" />
+                  <RadioGroupItem value="email" id="contact-email" className="text-[#ccb296]" />
                   <Label htmlFor="contact-email">メール</Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="phone" id="contact-phone" className="text-pink-400" />
+                  <RadioGroupItem value="phone" id="contact-phone" className="text-[#ccb296]" />
                   <Label htmlFor="contact-phone">電話</Label>
                 </div>
               </RadioGroup>
@@ -238,13 +245,13 @@ export default function ApplicationFlowSection() {
 
             <motion.div {...fadeInUp} className="group">
               <Label htmlFor="message" className="inline-flex items-center space-x-2 mb-4">
-                <Star size={16} className="text-pink-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <Star size={16} className="text-[#ccb296] opacity-0 group-hover:opacity-100 transition-opacity" />
                 <span>ご質問・ご相談などお気軽にお問い合わせください。</span>
               </Label>
               <Textarea
                 id="message"
                 placeholder="ご質問やご相談内容をご記入ください"
-                className="min-h-[120px] transition-all duration-300 border-pink-100 focus:border-pink-300 focus:ring-pink-200"
+                className="min-h-[120px] transition-all duration-300 border-[#ccb296] focus:border-[#ffc4a3] focus:ring-[#ffc4a3]/20"
               />
             </motion.div>
           </div>
@@ -255,7 +262,7 @@ export default function ApplicationFlowSection() {
           >
             <Button
               type="submit"
-              className="w-full bg-gradient-to-r from-pink-400 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white font-medium py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center space-x-2"
+              className="w-full bg-gradient-to-r from-[#ccb296] to-[#ffc4a3] hover:from-[#ffc4a3] hover:to-[#ccb296] text-white font-medium py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center space-x-2"
               disabled={isSubmitting}
             >
               <Send size={18} className="mr-2" />

@@ -55,20 +55,15 @@ const faqs = [
 export default function FaqSection() {
   return (
     <section 
-      className="w-full py-16"
+      className="w-full py-16 relative"
       style={{
-        background: `
-          repeating-linear-gradient(
-            -45deg,
-            #f0f9ff,
-            #f0f9ff 20px,
-            #e0f2fe 20px,
-            #e0f2fe 40px
-          )
-        `
+        backgroundImage: "url('/images/faq/FaqSection.png')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
       }}
     >
-      <div className="container mx-auto px-4 max-w-3xl">
+      <div className="container mx-auto px-4 max-w-3xl relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -78,7 +73,7 @@ export default function FaqSection() {
           <h2 className="text-3xl font-bold text-gray-800 relative inline-block">
             <span className="relative z-10">よくある質問</span>
             <motion.span
-              className="absolute -right-8 -top-6 text-pink-400"
+              className="absolute -right-8 -top-6 text-[#ccb296]"
               animate={{ rotate: [0, 15, -15, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
@@ -102,15 +97,15 @@ export default function FaqSection() {
               >
                 <AccordionItem
                   value={`item-${index}`}
-                  className="bg-white rounded-xl shadow-sm border border-pink-100 overflow-hidden"
+                  className="bg-white/90 backdrop-blur-sm rounded-xl shadow-sm border border-[#ccb296] overflow-hidden"
                 >
-                  <AccordionTrigger className="px-6 py-4 hover:bg-pink-50 transition-colors duration-200">
+                  <AccordionTrigger className="px-6 py-4 hover:bg-[#fefce8]/50 transition-colors duration-200">
                     <div className="flex items-center gap-3 text-left">
-                      <HelpCircle className="w-5 h-5 text-pink-400 flex-shrink-0" />
+                      <HelpCircle className="w-5 h-5 text-[#ccb296] flex-shrink-0" />
                       <span className="text-gray-800">{faq.question}</span>
                     </div>
                   </AccordionTrigger>
-                  <AccordionContent className="px-6 py-4 text-gray-600 bg-gradient-to-r from-pink-50/30 to-transparent">
+                  <AccordionContent className="px-6 py-4 text-gray-600 bg-gradient-to-r from-[#fefce8]/30 to-transparent">
                     {faq.answer.split('\n').map((line, i) => (
                       <p key={i} className="mb-2 last:mb-0">
                         {line}

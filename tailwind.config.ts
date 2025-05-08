@@ -9,10 +9,19 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['M PLUS Rounded 1c', 'sans-serif'],
+        rounded: ['M PLUS Rounded 1c', 'sans-serif'],
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'windowpane': `
+          linear-gradient(0deg, #D7F8F4 2px, transparent 2px),
+          linear-gradient(90deg, #D7F8F4 2px, transparent 2px),
+          linear-gradient(0deg, #E8F3EB 1px, transparent 1px),
+          linear-gradient(90deg, #E8F3EB 1px, transparent 1px)
+        `,
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -63,20 +72,12 @@ const config: Config = {
       },
       keyframes: {
         'accordion-down': {
-          from: {
-            height: '0',
-          },
-          to: {
-            height: 'var(--radix-accordion-content-height)',
-          },
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' },
         },
         'accordion-up': {
-          from: {
-            height: 'var(--radix-accordion-content-height)',
-          },
-          to: {
-            height: '0',
-          },
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' },
         },
         marquee: {
           '0%': { transform: 'translateX(0%)' },

@@ -29,16 +29,15 @@ export default function Header() {
   return (
     <>
       <header
-        className={
-          `
+        className={`
           w-full 
           py-1                /* 上下 padding: 4px */
           shadow-sm 
           fixed top-0 z-50 
           transition-all duration-300 
+          bg-white
           ${isScrolled ? 'bg-opacity-90 backdrop-blur-sm' : ''}
         `}
-        style={{ backgroundColor: '#FAF7F5' }}
       >
         <div className="container mx-auto px-2 flex justify-between items-center h-8">
           <div className="font-serif italic font-bold tracking-wide leading-none" style={{ color: '#B3927A' }}>
@@ -56,8 +55,7 @@ export default function Header() {
 
       {/* モバイルオーバーレイ */}
       <div 
-        className={
-          `
+        className={`
           fixed inset-0 bg-black bg-opacity-50 z-40 
           transition-opacity duration-300 
           ${isMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}
@@ -67,8 +65,7 @@ export default function Header() {
 
       {/* モバイルメニュー */}
       <nav 
-        className={
-          `
+        className={`
           fixed top-0 right-0 h-full w-64 bg-white shadow-lg z-50 
           transform transition-transform duration-300 ease-in-out 
           ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}

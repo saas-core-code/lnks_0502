@@ -1,9 +1,9 @@
-// components/sections/BenefitComparisonSection.tsx
 "use client";
 
 import React from "react";
 import { motion } from "framer-motion";
 import Marquee from "react-fast-marquee";
+import Image from "next/image";
 
 const data = [
   {
@@ -45,29 +45,50 @@ const data = [
 
 export default function BenefitComparisonSection() {
   return (
-    <section className="w-full py-16 overflow-x-hidden relative" style={{
-      backgroundImage: `
-        linear-gradient(0deg, #f4f6e9 1px, transparent 1px),
-        linear-gradient(90deg, #f4f6e9 1px, transparent 1px),
-        linear-gradient(0deg, #f4f6e9 0.5px, transparent 0.5px),
-        linear-gradient(90deg, #f4f6e9 0.5px, transparent 0.5px)
-      `,
+    <section className="w-full pt-[20px] overflow-x-hidden relative" style={{
+      backgroundImage: 'linear-gradient(0deg, #f4f6e9 1px, transparent 1px), linear-gradient(90deg, #f4f6e9 1px, transparent 1px), linear-gradient(0deg, #f4f6e9 0.5px, transparent 0.5px), linear-gradient(90deg, #f4f6e9 0.5px, transparent 0.5px)',
       backgroundSize: '30px 30px, 30px 30px, 6px 6px, 6px 6px',
       backgroundColor: 'white'
     }}>
       <div className="w-full px-4 md:container md:mx-auto">
-        {/* ヘッダーセクション - 見出しと画像を横に配置 */}
-        <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-6">
-          <h2 className="text-3xl font-bold text-[#4a4a4a]">選ばれる理由</h2>
-          
-          <div className="w-full md:w-1/3">
-            <div className="rounded-2xl shadow-lg overflow-hidden">
-              <div className="bg-[#ccb296] p-6 text-center">
-                <p className="text-lg font-medium text-white">Live-Links</p>
-                <p className="text-sm text-white mt-2">アナタの魅力を最大限に引き出すサポート</p>
-              </div>
-            </div>
-          </div>
+        {/* ヘッダー画像セクション */}
+        <div className="relative flex justify-center items-center mb-8">
+          <motion.div
+            initial={{ 
+              opacity: 0,
+              y: 30,
+            }}
+            whileInView={{ 
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{ 
+              duration: 1.2,
+              ease: "easeOut"
+            }}
+            className="w-[98%] max-w-4xl relative z-10"
+          >
+            <motion.div
+              animate={{
+                y: [-5, 5, -5]
+              }}
+              transition={{
+                duration: 6,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "easeInOut"
+              }}
+            >
+              <Image
+                src="/images/benefit-comparison/BenefitComparisonSection.png"
+                alt="選ばれる理由"
+                width={1200}
+                height={800}
+                className="w-full h-auto"
+                priority
+              />
+            </motion.div>
+          </motion.div>
         </div>
 
         <div className="max-w-4xl mx-auto space-y-6">
@@ -77,14 +98,10 @@ export default function BenefitComparisonSection() {
               initial={{
                 opacity: 0,
                 x: idx % 2 === 0 ? -100 : 100,
-                rotateY: idx % 2 === 0 ? -30 : 30,
-                scale: 0.8,
               }}
               whileInView={{
                 opacity: 1,
                 x: 0,
-                rotateY: 0,
-                scale: 1,
               }}
               transition={{
                 duration: 0.8,
@@ -93,7 +110,7 @@ export default function BenefitComparisonSection() {
                 stiffness: 100,
               }}
               viewport={{ once: true, margin: "-100px" }}
-              className="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#CDB397]"
+              className="bg-white rounded-2xl overflow-hidden border border-[#CDB397]"
             >
               <motion.div
                 className="p-6"
@@ -193,7 +210,6 @@ export default function BenefitComparisonSection() {
                         },
                       }}
                     >
-                      {/* 強調したい単語だけを大きくして色を変える。それ以外は小さく */}
                       {item.liveHighlight && item.live.includes(item.liveHighlight) ? (
                         <>
                           {item.live.split(item.liveHighlight)[0]}

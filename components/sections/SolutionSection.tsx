@@ -1,62 +1,193 @@
-// components/sections/SolutionSection.tsx
 "use client";
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { Star } from "lucide-react";
 
 export default function SolutionSection() {
+  const overlayImages = [
+    {
+      src: "/images/SolutionSection/SolutionSection_ho.png",
+      alt: "解決策1",
+      style: {
+        top: "40%",
+        left: "5%",
+        width: "20%",
+        height: "auto",
+      },
+      animation: {
+        y: [-15, 15],
+        x: [-10, 10],
+        rotate: [-8, 8],
+        scale: [0.95, 1.05]
+      }
+    },
+    {
+      src: "/images/SolutionSection/SolutionSection_sh.png",
+      alt: "解決策2",
+      style: {
+        top: "40%",
+        right: "55%",
+        width: "20%",
+        height: "auto",
+      },
+      animation: {
+        y: [10, -10],
+        x: [8, -8],
+        rotate: [5, -5],
+        scale: [1.05, 0.95]
+      }
+    },
+    {
+      src: "/images/SolutionSection/SolutionSection_zy.png",
+      alt: "解決策3",
+      style: {
+        bottom: "55%",
+        left: "15%",
+        width: "20%",
+        height: "auto",
+      },
+      animation: {
+        y: [-12, 12],
+        x: [-5, 5],
+        rotate: [-6, 6],
+        scale: [0.98, 1.02]
+      }
+    },
+  ];
+
   return (
-    <div className="relative w-full">
-      {/* クリーム色の背景を持つメインセクション */}
-      <div className="w-full bg-[#FEFCE8] py-20">
-        {/* メインコンテンツ */}
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-[#4a4a4a] mb-10">
-            解決します！!
-          </h2>
-          
-          <motion.div 
-            className="max-w-2xl mx-auto bg-[#ccb296] rounded-2xl shadow-lg overflow-hidden mb-10"
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
+    <section className="w-full relative overflow-hidden">
+      {/* メインの背景画像 */}
+      <motion.div
+        initial={{ 
+          scale: 1.1,
+          opacity: 0,
+          filter: "blur(10px)"
+        }}
+        animate={{ 
+          scale: 1,
+          opacity: 1,
+          filter: "blur(0px)"
+        }}
+        transition={{
+          duration: 1.2,
+          ease: "easeOut"
+        }}
+        className="relative"
+      >
+        <motion.div
+          animate={{
+            scale: [1, 1.02, 1],
+          }}
+          transition={{
+            duration: 5,
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "easeInOut"
+          }}
+        >
+          <Image
+            src="/images/SolutionSection/SolutionSection.png"
+            alt="チャットレディ未経験でも高収入 5つのサポート体制"
+            width={1200}
+            height={800}
+            className="w-full h-auto"
+            priority
+          />
+        </motion.div>
+
+        {/* キラキラエフェクト */}
+        <motion.div
+          className="absolute inset-0"
+          animate={{
+            background: [
+              "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, transparent 50%)",
+              "radial-gradient(circle at 70% 70%, rgba(255,255,255,0.2) 0%, transparent 50%)",
+              "radial-gradient(circle at 30% 70%, rgba(255,255,255,0.2) 0%, transparent 50%)",
+              "radial-gradient(circle at 70% 30%, rgba(255,255,255,0.2) 0%, transparent 50%)",
+            ]
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            repeatType: "reverse"
+          }}
+        />
+      </motion.div>
+
+      {/* オーバーレイ画像 */}
+      {overlayImages.map((image, index) => (
+        <motion.div
+          key={index}
+          className="absolute"
+          style={image.style}
+          initial={{ 
+            opacity: 0,
+            y: 20,
+            scale: 0.8,
+            filter: "blur(10px)",
+            rotate: -15
+          }}
+          animate={{ 
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            filter: "blur(0px)",
+            rotate: 0
+          }}
+          transition={{
+            duration: 1.5,
+            delay: index * 0.3,
+            ease: [0.34, 1.56, 0.64, 1]
+          }}
+        >
+          <motion.div
+            animate={{
+              y: image.animation.y,
+              x: image.animation.x,
+              rotate: image.animation.rotate,
+              scale: image.animation.scale,
+            }}
+            transition={{
+              y: {
+                duration: 3 + index,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "easeInOut"
+              },
+              x: {
+                duration: 4 + index,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "easeInOut"
+              },
+              rotate: {
+                duration: 5 + index,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "easeInOut"
+              },
+              scale: {
+                duration: 2.5 + index,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "easeInOut"
+              }
+            }}
           >
-            <div className="p-8 text-center">
-              <p className="text-xl font-medium text-white">確定申告は専門スタッフが丸ごと代行</p>
-              <p className="text-lg text-white mt-3 opacity-90">完全個室＆最新機材で、プライバシーも収入も安心してサポートいたします</p>
-              <div className="flex justify-center gap-2 mt-4">
-                <Star className="w-5 h-5 text-white fill-white" />
-                <Star className="w-5 h-5 text-white fill-white" />
-                <Star className="w-5 h-5 text-white fill-white" />
-                <Star className="w-5 h-5 text-white fill-white" />
-                <Star className="w-5 h-5 text-white fill-white" />
-              </div>
-            </div>
+            <Image
+              src={image.src}
+              alt={image.alt}
+              width={300}
+              height={300}
+              className="w-full h-auto"
+              style={{
+                filter: "drop-shadow(0 15px 20px rgba(0,0,0,0.15))"
+              }}
+            />
           </motion.div>
-          
-          {/* コールトゥアクション */}
-          <motion.div 
-            className="mt-10 text-center"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            viewport={{ once: true }}
-          >
-            <p className="text-lg text-gray-700 font-medium mb-6">
-              あなたも他の女性ライバーと同じように、高い還元率とフルサポートを体験してみませんか？
-            </p>
-            <motion.button 
-              className="px-8 py-3 bg-[#CDB397] text-white rounded-full font-medium text-lg shadow-lg"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              無料相談を申し込む
-            </motion.button>
-          </motion.div>
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      ))}
+    </section>
   );
 }

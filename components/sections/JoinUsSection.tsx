@@ -1,7 +1,7 @@
 "use client";
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import Image from 'next/image';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 // タイムラインのデータの型定義
 interface TimelineItem {
@@ -90,82 +90,54 @@ const timelineData: TimelineItem[] = [
 // 1枚のカードコンポーネント
 const TimelineCard: React.FC<TimelineCardProps> = ({ data, index }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const scale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1]);
-  const opacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
   
-  // 時計のアニメーション用の状態
-  const [isBlinking, setIsBlinking] = useState<boolean>(true);
-  
-  // コロンの点滅を制御
-  useEffect(() => {
-    const blinkInterval = setInterval(() => {
-      setIsBlinking(prev => !prev);
-    }, 500);
-    
-    return () => clearInterval(blinkInterval);
-  }, []);
+  // カードの出現に遅延を追加（順番に表示）但し遅延を短くする
+  const cardDelay = index * 0.05;
 
-  // オレンジカードのアニメーション設定
+  // オレンジカードのアニメーション設定 - よりゆっくりな表現に
   const orangeCardVariants = {
     hidden: { 
-      opacity: 0, 
-      y: 50,
-      scale: 0.9,
-      filter: "blur(8px)"
+      opacity: 0,
+      y: 20,
+      scale: 0.95
     },
     visible: { 
-      opacity: 1, 
+      opacity: 1,
       y: 0,
       scale: 1,
-      filter: "blur(0px)",
-      transition: { 
-        type: "spring", 
-        stiffness: 50, 
-        damping: 10,
-        delay: 0.7, // 他の要素の後に表示
-        duration: 0.8
+      transition: {
+        duration: 2.5, // アニメーション時間を延長
+        ease: [0.22, 1, 0.36, 1], // よりスムーズなイージング
+        opacity: { duration: 3 }, // 透明度の変化をさらにゆっくりに
+        scale: { duration: 2 } // スケールの変化も調整
       }
     }
   };
 
-  // カードの出現に遅延を追加（順番に表示）
-  const cardDelay = index * 0.1;
-
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 py-8">
-      {/* カード全体 */}
+    <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 py-4">
       <div className="relative flex flex-col">
-        {/* サーモンピンクの左端バー */}
-        <motion.div 
-          initial={{ height: 0 }}
-          whileInView={{ height: "auto" }}
-          transition={{ duration: 0.5, delay: cardDelay }}
-          className="absolute left-0 top-2 bottom-2 w-6 bg-[#FAD4C0] rounded-l-xl" 
-        />
+        {/* サーモンピンクの左端バー - 静的要素に変更 */}
+        <div className="absolute left-0 top-2 bottom-2 w-6 bg-[#FAD4C0] rounded-l-xl"></div>
         
-        {/* カード本体 */}
+        {/* カード本体 - アニメーションを軽量化 */}
         <motion.div
           ref={ref}
-          style={{ scale, opacity }}
-          initial={{ y: 100, opacity: 0 }}
+          initial={{ y: 30, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ type: "spring", stiffness: 100, damping: 20, delay: cardDelay }}
+          viewport={{ once: false, margin: "-50px" }}
+          transition={{ duration: 0.3, delay: cardDelay }}
           className="ml-6 bg-white rounded-xl shadow-lg overflow-hidden"
         >
-          <div className="p-6">
-            <div className="flex flex-col sm:flex-row gap-6">
-              {/* 画像 */}
+          <div className="p-4">
+            <div className="flex flex-col sm:flex-row gap-4">
+              {/* 画像 - アニメーション軽量化・高さを少し縮小 */}
               <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ type: "spring", stiffness: 100, delay: 0.3 + cardDelay }}
-                className="w-full sm:w-2/5 h-48 rounded-xl overflow-hidden shadow-md"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: false }}
+                transition={{ duration: 0.3 }}
+                className="w-full sm:w-2/5 h-40 rounded-xl overflow-hidden shadow-md"
               >
                 <Image
                   src={data.image}
@@ -173,58 +145,51 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ data, index }) => {
                   width={800}
                   height={600}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
               </motion.div>
               
               {/* テキスト情報 */}
               <div className="flex flex-col justify-center flex-1">
-                {/* 時間表示 */}
+                {/* 時間、お題、英語を一行にまとめる */}
                 <motion.div 
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ type: "spring", stiffness: 100, delay: 0.4 + cardDelay }}
-                  className="flex items-baseline mb-2"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: false }}
+                  transition={{ duration: 0.3 }}
+                  className="flex items-center gap-3 mb-2"
                 >
-                  <motion.span
-                    className="text-3xl font-serif italic font-bold text-[#294460]"
-                    animate={{ 
-                      scale: [1, 1.05, 1],
-                      y: [0, -2, 0]
-                    }}
-                    transition={{ 
-                      repeat: Infinity, 
-                      duration: 4,
-                      ease: "easeInOut"
-                    }}
-                  >
+                  {/* 時間表示 */}
+                  <span className="text-2xl font-serif italic font-bold text-[#294460]">
                     {data.time.split(":")[0]}
-                    <span className={`mx-1 transition-opacity duration-200 ${isBlinking ? 'opacity-100' : 'opacity-30'}`}>:</span>
+                    <span className="mx-1 animate-blink">:</span>
                     {data.time.split(":")[1]}
-                  </motion.span>
+                  </span>
+                  
+                  {/* 縦線で区切る */}
+                  <div className="h-6 w-px bg-[#294460]/30"></div>
+                  
+                  {/* お題と英語ラベル */}
+                  <div className="flex items-baseline gap-2">
+                    <h3 className="text-lg font-bold text-[#294460]">{data.label}</h3>
+                    <span className="text-xs uppercase tracking-wide text-[#294460]/70">{data.labelEn}</span>
+                  </div>
                 </motion.div>
                 
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ type: "spring", stiffness: 100, delay: 0.5 + cardDelay }}
-                >
-                  <h3 className="text-lg font-bold text-[#294460]">{data.label}</h3>
-                  <span className="text-sm uppercase tracking-wide text-[#294460]/70 mb-4">{data.labelEn}</span>
-                </motion.div>
-                
-                {/* 説明文 - ふぁ〜と下から出てくるアニメーション */}
+                {/* 説明文 - アニメーションを更新 */}
                 <motion.div
                   variants={orangeCardVariants}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.7 + cardDelay }}
+                  viewport={{ once: false, margin: "-50px" }}
                   className="text-sm p-4 rounded-xl text-white overflow-hidden mt-4"
-                  style={{ background: 'linear-gradient(135deg, #ffc4a3 0%, #ffb391 100%)' }}
+                  style={{ 
+                    background: 'linear-gradient(135deg, #ffc4a3 0%, #ffb391 100%)',
+                    boxShadow: '0 8px 16px -4px rgba(255, 196, 163, 0.25)',
+                    backdropFilter: 'blur(8px)'
+                  }}
                 >
-                  <p>{data.description}</p>
+                  <p className="leading-relaxed">{data.description}</p>
                 </motion.div>
               </div>
             </div>
@@ -238,8 +203,8 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ data, index }) => {
 // 全体のタイムラインコンポーネント
 const Timeline: React.FC = () => {
   return (
-    <div className="py-8">
-      <h2 className="text-3xl font-bold text-center text-[#294460] mb-12">1日のスケジュール</h2>
+    <div className="py-6">
+      <h2 className="text-3xl font-bold text-center text-[#294460] mb-8">1日のスケジュール</h2>
       
       <div className="relative">
         {/* 縦のタイムラインライン */}
@@ -253,5 +218,18 @@ const Timeline: React.FC = () => {
     </div>
   );
 };
+
+// CSSアニメーション用のスタイルを追加（tailwind.config.jsに以下を追加）
+// extend: {
+//   animation: {
+//     'blink': 'blink 1s infinite',
+//   },
+//   keyframes: {
+//     blink: {
+//       '0%, 100%': { opacity: 1 },
+//       '50%': { opacity: 0.3 },
+//     },
+//   },
+// },
 
 export default Timeline;

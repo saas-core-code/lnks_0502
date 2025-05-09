@@ -57,137 +57,133 @@ export default function SolutionSection() {
 
   return (
     <section className="w-full relative overflow-hidden">
-      {/* メインの背景画像 */}
-      <motion.div
-        initial={{ 
-          scale: 1.1,
-          opacity: 0,
-          filter: "blur(10px)"
-        }}
-        animate={{ 
-          scale: 1,
-          opacity: 1,
-          filter: "blur(0px)"
-        }}
-        transition={{
-          duration: 1.2,
-          ease: "easeOut"
-        }}
-        className="relative"
-      >
+      {/* 背景コンテナ */}
+      <div className="relative w-full">
+        {/* メインの背景画像 */}
         <motion.div
-          animate={{
-            scale: [1, 1.02, 1],
-          }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-            repeatType: "reverse",
-            ease: "easeInOut"
-          }}
+          initial={{ scale: 1.1, opacity: 0, filter: "blur(10px)" }}
+          animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          className="relative"
         >
-          <Image
-            src="/images/SolutionSection/SolutionSection.png"
-            alt="チャットレディ未経験でも高収入 5つのサポート体制"
-            width={1200}
-            height={800}
-            className="w-full h-auto"
-            priority
+          <motion.div
+            animate={{ scale: [1, 1.02, 1] }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              repeatType: "reverse",
+              ease: "easeInOut",
+            }}
+            className="w-full relative"
+          >
+            <Image
+              src="/images/SolutionSection/SolutionSection.png"
+              alt="チャットレディ未経験でも高収入 5つのサポート体制"
+              width={1200}
+              height={800}
+              className="w-full h-auto"
+              priority
+            />
+            
+            {/* 追加のオーバーレイ画像 */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ 
+                opacity: 1,
+                scale: [0.95, 1.05, 0.95],
+                y: [-5, 5, -5]
+              }}
+              transition={{ 
+                opacity: { duration: 0.8 },
+                scale: { 
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                },
+                y: {
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }
+              }}
+              className="absolute w-full h-full"
+              style={{
+                top: "40%",
+                left: "26%",
+                maxWidth: "50%",
+              }}
+            >
+              <Image
+                src="/images/SolutionSection/SolutionSection_i.png"
+                alt="特典情報"
+                width={600}
+                height={400}
+                className="w-full h-full object-contain"
+                priority
+              />
+            </motion.div>
+          </motion.div>
+
+          {/* キラキラエフェクト */}
+          <motion.div
+            className="absolute inset-0"
+            animate={{
+              background: [
+                "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, transparent 50%)",
+                "radial-gradient(circle at 70% 70%, rgba(255,255,255,0.2) 0%, transparent 50%)",
+                "radial-gradient(circle at 30% 70%, rgba(255,255,255,0.2) 0%, transparent 50%)",
+                "radial-gradient(circle at 70% 30%, rgba(255,255,255,0.2) 0%, transparent 50%)",
+              ],
+            }}
+            transition={{ duration: 4, repeat: Infinity, repeatType: "reverse" }}
           />
         </motion.div>
 
-        {/* キラキラエフェクト */}
-        <motion.div
-          className="absolute inset-0"
-          animate={{
-            background: [
-              "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, transparent 50%)",
-              "radial-gradient(circle at 70% 70%, rgba(255,255,255,0.2) 0%, transparent 50%)",
-              "radial-gradient(circle at 30% 70%, rgba(255,255,255,0.2) 0%, transparent 50%)",
-              "radial-gradient(circle at 70% 30%, rgba(255,255,255,0.2) 0%, transparent 50%)",
-            ]
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            repeatType: "reverse"
-          }}
-        />
-      </motion.div>
-
-      {/* オーバーレイ画像 */}
-      {overlayImages.map((image, index) => (
-        <motion.div
-          key={index}
-          className="absolute"
-          style={image.style}
-          initial={{ 
-            opacity: 0,
-            y: 20,
-            scale: 0.8,
-            filter: "blur(10px)",
-            rotate: -15
-          }}
-          animate={{ 
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            filter: "blur(0px)",
-            rotate: 0
-          }}
-          transition={{
-            duration: 1.5,
-            delay: index * 0.3,
-            ease: [0.34, 1.56, 0.64, 1]
-          }}
-        >
+        {/* オーバーレイ画像 */}
+        {overlayImages.map((image, index) => (
           <motion.div
-            animate={{
-              y: image.animation.y,
-              x: image.animation.x,
-              rotate: image.animation.rotate,
-              scale: image.animation.scale,
-            }}
-            transition={{
-              y: {
-                duration: 3 + index,
-                repeat: Infinity,
-                repeatType: "reverse",
-                ease: "easeInOut"
-              },
-              x: {
-                duration: 4 + index,
-                repeat: Infinity,
-                repeatType: "reverse",
-                ease: "easeInOut"
-              },
-              rotate: {
-                duration: 5 + index,
-                repeat: Infinity,
-                repeatType: "reverse",
-                ease: "easeInOut"
-              },
-              scale: {
-                duration: 2.5 + index,
-                repeat: Infinity,
-                repeatType: "reverse",
-                ease: "easeInOut"
-              }
-            }}
+            key={index}
+            className="absolute"
+            style={image.style}
+            initial={{ opacity: 0, y: 20, scale: 0.8, filter: "blur(10px)", rotate: -15 }}
+            animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)", rotate: 0 }}
+            transition={{ duration: 1.5, delay: index * 0.3, ease: [0.34, 1.56, 0.64, 1] }}
           >
-            <Image
-              src={image.src}
-              alt={image.alt}
-              width={300}
-              height={300}
-              className="w-full h-auto"
-              style={{
-                filter: "drop-shadow(0 15px 20px rgba(0,0,0,0.15))"
+            <motion.div
+              animate={{
+                y: image.animation.y,
+                x: image.animation.x,
+                rotate: image.animation.rotate,
+                scale: image.animation.scale,
               }}
-            />
+              transition={{
+                y: { duration: 3 + index, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" },
+                x: { duration: 4 + index, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" },
+                rotate: { duration: 5 + index, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" },
+                scale: { duration: 2.5 + index, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" },
+              }}
+            >
+              <Image
+                src={image.src}
+                alt={image.alt}
+                width={300}
+                height={300}
+                className="w-full h-auto"
+                style={{ filter: "drop-shadow(0 15px 20px rgba(0,0,0,0.15))" }}
+              />
+            </motion.div>
           </motion.div>
-        </motion.div>
-      ))}
+        ))}
+      </div>
+
+      {/* 下部の追加画像 */}
+      <Image
+        src="/images/SolutionSection/SolutionSection2.png"
+        alt="追加の説明画像"
+        width={1200}
+        height={800}
+        className="w-full h-auto"
+      />
     </section>
   );
 }

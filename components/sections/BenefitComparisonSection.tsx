@@ -53,42 +53,16 @@ export default function BenefitComparisonSection() {
       <div className="w-full px-4 md:container md:mx-auto">
         {/* ヘッダー画像セクション */}
         <div className="relative flex justify-center items-center mb-8">
-          <motion.div
-            initial={{ 
-              opacity: 0,
-              y: 30,
-            }}
-            whileInView={{ 
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{ 
-              duration: 1.2,
-              ease: "easeOut"
-            }}
-            className="w-[98%] max-w-4xl relative z-10"
-          >
-            <motion.div
-              animate={{
-                y: [-5, 5, -5]
-              }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                repeatType: "reverse",
-                ease: "easeInOut"
-              }}
-            >
-              <Image
-                src="/images/benefit-comparison/BenefitComparisonSection.png"
-                alt="選ばれる理由"
-                width={1200}
-                height={800}
-                className="w-full h-auto"
-                priority
-              />
-            </motion.div>
-          </motion.div>
+          <div className="w-[98%] max-w-4xl relative z-10">
+            <Image
+              src="/images/benefit-comparison/BenefitComparisonSection.png"
+              alt="選ばれる理由"
+              width={1200}
+              height={800}
+              className="w-full h-auto"
+              priority
+            />
+          </div>
         </div>
 
         <div className="max-w-4xl mx-auto space-y-6">
@@ -98,10 +72,12 @@ export default function BenefitComparisonSection() {
               initial={{
                 opacity: 0,
                 x: idx % 2 === 0 ? -100 : 100,
+                y: 50
               }}
               whileInView={{
                 opacity: 1,
                 x: 0,
+                y: 0
               }}
               transition={{
                 duration: 0.8,
@@ -114,13 +90,29 @@ export default function BenefitComparisonSection() {
             >
               <motion.div
                 className="p-6"
-                whileHover={{ scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 400 }}
+                animate={{
+                  x: [-5, 5, -5],
+                  y: [-3, 3, -3]
+                }}
+                transition={{
+                  x: {
+                    duration: 6,
+                    repeat: Infinity,
+                    repeatType: "reverse",
+                    ease: "easeInOut"
+                  },
+                  y: {
+                    duration: 4,
+                    repeat: Infinity,
+                    repeatType: "reverse",
+                    ease: "easeInOut"
+                  }
+                }}
               >
                 <motion.h3
                   className="text-lg font-bold mb-2 text-[#CDB397]"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, x: -20, y: 10 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
                   transition={{ delay: idx * 0.15 + 0.3 }}
                 >
                   {item.label}
@@ -151,63 +143,70 @@ export default function BenefitComparisonSection() {
                 <div className="grid grid-cols-2 gap-4">
                   <motion.div
                     className="rounded-xl p-4 bg-[rgba(205,179,151,0.1)]"
-                    whileHover={{
-                      scale: 1.05,
-                      transition: { type: "spring", stiffness: 300 },
+                    animate={{
+                      x: [-3, 3, -3],
+                      y: [-2, 2, -2]
                     }}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: idx * 0.15 + 0.5 }}
+                    transition={{
+                      x: {
+                        duration: 4,
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                        ease: "easeInOut"
+                      },
+                      y: {
+                        duration: 3,
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                        ease: "easeInOut"
+                      }
+                    }}
                   >
                     <motion.div
                       className="flex items-center gap-2 mb-3"
                       animate={{
-                        y: [0, -4, 0],
-                        transition: {
+                        x: [-2, 2, -2],
+                        y: [-1, 1, -1]
+                      }}
+                      transition={{
+                        x: {
+                          duration: 3,
+                          repeat: Infinity,
+                          repeatType: "reverse",
+                          ease: "easeInOut"
+                        },
+                        y: {
                           duration: 2,
                           repeat: Infinity,
-                          ease: "easeInOut",
-                        },
+                          repeatType: "reverse",
+                          ease: "easeInOut"
+                        }
                       }}
                     >
-                      <motion.span
-                        className="font-bold text-[#CDB397] text-2xl"
-                        animate={{
-                          rotate: [0, 10, -10, 0],
-                          scale: [1, 1.2, 1],
-                          transition: {
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                          },
-                        }}
-                      >
-                        ◎
-                      </motion.span>
-                      <motion.span
-                        className="font-serif italic font-bold tracking-wide text-[#B3927A] text-base"
-                        animate={{
-                          scale: [1, 1.05, 1],
-                          transition: {
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                          },
-                        }}
-                      >
+                      <span className="font-bold text-[#CDB397] text-2xl">◎</span>
+                      <span className="font-serif italic font-bold tracking-wide text-[#B3927A] text-base">
                         Live-Links
-                      </motion.span>
+                      </span>
                     </motion.div>
                     <motion.p
                       className="text-xs font-medium text-[#474037] leading-relaxed"
                       animate={{
-                        opacity: [0.8, 1, 0.8],
-                        scale: [1, 1.02, 1],
-                        transition: {
+                        x: [-1, 1, -1],
+                        y: [-0.5, 0.5, -0.5]
+                      }}
+                      transition={{
+                        x: {
                           duration: 2,
                           repeat: Infinity,
-                          ease: "easeInOut",
+                          repeatType: "reverse",
+                          ease: "easeInOut"
                         },
+                        y: {
+                          duration: 1.5,
+                          repeat: Infinity,
+                          repeatType: "reverse",
+                          ease: "easeInOut"
+                        }
                       }}
                     >
                       {item.liveHighlight && item.live.includes(item.liveHighlight) ? (
@@ -226,17 +225,28 @@ export default function BenefitComparisonSection() {
 
                   <motion.div
                     className="bg-gray-50 rounded-xl p-4"
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.15 + 0.6 }}
+                    animate={{
+                      x: [-2, 2, -2],
+                      y: [-1.5, 1.5, -1.5]
+                    }}
+                    transition={{
+                      x: {
+                        duration: 5,
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                        ease: "easeInOut"
+                      },
+                      y: {
+                        duration: 3.5,
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                        ease: "easeInOut"
+                      }
+                    }}
                   >
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="text-gray-400 font-bold text-lg">
-                        △
-                      </span>
-                      <span className="text-xs font-medium text-[#474037]">
-                        他社
-                      </span>
+                      <span className="text-gray-400 font-bold text-lg">△</span>
+                      <span className="text-xs font-medium text-[#474037]">他社</span>
                     </div>
                     <p className="text-xs text-[#474037]">{item.other}</p>
                   </motion.div>

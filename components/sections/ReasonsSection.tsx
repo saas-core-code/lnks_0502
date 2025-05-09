@@ -114,7 +114,7 @@ export default function ReasonsSection() {
         </div>
       </div>
       
-      <script 
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({

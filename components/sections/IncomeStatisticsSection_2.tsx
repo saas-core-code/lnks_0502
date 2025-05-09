@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
-import { Users, Clock, DollarSign, Award } from "lucide-react";
+import { Users, Heart, DollarSign, Sparkles } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 
 function SpinningNumber({ value, unit }: { value: number; unit: string }) {
@@ -16,7 +16,7 @@ function SpinningNumber({ value, unit }: { value: number; unit: string }) {
       if (animationRef.current) {
         animationRef.current.stop();
       }
-      
+
       animationRef.current = animate(count, value, {
         duration: 2,
         ease: "easeOut",
@@ -47,7 +47,7 @@ function SpinningNumber({ value, unit }: { value: number; unit: string }) {
       <motion.span className="text-4xl font-bold font-rounded bg-clip-text text-transparent bg-gradient-to-r from-[#ccb296] to-[#ffc4a3]">
         {rounded}
       </motion.span>
-      <span className="text-xl ml-1 text-gray-600 font-rounded">{unit}</span>
+      <span className="text-lg ml-1 text-gray-600 font-rounded">{unit}</span>
     </motion.div>
   );
 }
@@ -56,25 +56,25 @@ export default function IncomeStatisticsSection_2() {
   const statsCards = [
     {
       icon: Users,
-      label: "月間利用者数",
-      value: 1234,
+      label: "在籍ライバー数",
+      value: 147,
       unit: "人",
       color: "#ccb296",
       direction: "right",
       gradient: "from-[#ccb296] to-[#ffc4a3]"
     },
     {
-      icon: Clock,
-      label: "平均勤務時間",
-      value: 45,
-      unit: "時間",
+      icon: Heart,
+      label: "満足度(アンケート結果)",
+      value: 92,
+      unit: "%",
       color: "#ffc4a3",
       direction: "left",
       gradient: "from-[#ffc4a3] to-[#fefce8]"
     },
     {
       icon: DollarSign,
-      label: "平均月収",
+      label: "平均月収(1回平均3.5時間)週2~3回",
       value: 35,
       unit: "万円",
       color: "#fefce8",
@@ -82,9 +82,9 @@ export default function IncomeStatisticsSection_2() {
       gradient: "from-[#fefce8] to-[#d8debf]"
     },
     {
-      icon: Award,
-      label: "満足度",
-      value: 98,
+      icon: Sparkles,
+      label: "未経験スタート率",
+      value: 82,
       unit: "%",
       color: "#d8debf",
       direction: "left",
@@ -93,10 +93,10 @@ export default function IncomeStatisticsSection_2() {
   ];
 
   return (
-    <section className="w-full bg-[#fefce8] overflow-hidden pb-[20px]">
+    <section className="w-full bg-[#fefce8] overflow-hidden py-12">
       <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
             {statsCards.map((card, index) => (
               <motion.div
                 key={card.label}
@@ -127,8 +127,7 @@ export default function IncomeStatisticsSection_2() {
                 }}
                 className="bg-white rounded-2xl p-6 shadow-lg relative overflow-hidden transform-gpu hover:shadow-2xl transition-all duration-300"
               >
-                {/* グラデーションボーダー */}
-                <div className="absolute inset-0 p-[2px] rounded-2xl bg-gradient-to-r from-[#ccb296]/20 to-[#ffc4a3]/20">
+                <div className={`absolute inset-0 p-[2px] rounded-2xl bg-gradient-to-r ${card.gradient}/20`}>
                   <div className="w-full h-full bg-white rounded-2xl" />
                 </div>
 
@@ -142,6 +141,7 @@ export default function IncomeStatisticsSection_2() {
                     <card.icon 
                       size={24} 
                       className={`bg-gradient-to-r ${card.gradient} p-1 rounded-lg text-white`}
+                      aria-label={card.label}
                     />
                     <motion.div
                       animate={{ 
@@ -162,7 +162,6 @@ export default function IncomeStatisticsSection_2() {
                   <SpinningNumber value={card.value} unit={card.unit} />
                 </motion.div>
 
-                {/* 背景アニメーション */}
                 <motion.div
                   className="absolute inset-0 z-0 opacity-10"
                   animate={{ 
@@ -174,7 +173,7 @@ export default function IncomeStatisticsSection_2() {
                     scale: { duration: 3, repeat: Infinity, ease: "easeInOut" }
                   }}
                   style={{
-                    background: `conic-gradient(from 0deg at 50% 50%, transparent, ${card.color}, transparent)`,
+                    background: `conic-gradient(from 0deg at 50% 50%, transparent, ${card.color}, transparent)`
                   }}
                 />
               </motion.div>

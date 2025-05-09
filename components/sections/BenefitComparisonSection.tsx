@@ -45,24 +45,21 @@ const data = [
 
 export default function BenefitComparisonSection() {
   return (
-    <section className="w-full pt-[20px] overflow-x-hidden relative" style={{
+    <section className="w-full overflow-x-hidden relative" style={{
       backgroundImage: 'linear-gradient(0deg, #f4f6e9 1px, transparent 1px), linear-gradient(90deg, #f4f6e9 1px, transparent 1px), linear-gradient(0deg, #f4f6e9 0.5px, transparent 0.5px), linear-gradient(90deg, #f4f6e9 0.5px, transparent 0.5px)',
       backgroundSize: '30px 30px, 30px 30px, 6px 6px, 6px 6px',
       backgroundColor: 'white'
     }}>
       <div className="w-full px-4 md:container md:mx-auto">
-        {/* ヘッダー画像セクション */}
         <div className="relative flex justify-center items-center mb-8">
-          <div className="w-[98%] max-w-4xl relative z-10">
-            <Image
-              src="/images/benefit-comparison/BenefitComparisonSection.png"
-              alt="選ばれる理由"
-              width={1200}
-              height={800}
-              className="w-full h-auto"
-              priority
-            />
-          </div>
+          <Image
+            src="/images/benefit-comparison/BenefitComparisonSection.png"
+            alt="選ばれる理由"
+            width={1200}
+            height={800}
+            className="w-full h-auto"
+            priority
+          />
         </div>
 
         <div className="max-w-4xl mx-auto space-y-6">

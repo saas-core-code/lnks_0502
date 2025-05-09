@@ -14,6 +14,7 @@ import ApplicationFlowSection from '@/components/sections/ApplicationFlowSection
 import WelcomeBonusBanner from '@/components/banners/WelcomeBonusBanner';
 import SnsLinksBanner from '@/components/banners/SnsLinksBanner';
 import FixedFooterBanner from '@/components/banners/FixedFooterBanner';
+import LiveStudioTourSection from '@/components/sections/LiveStudioTourSection';
 
 export default function Home() {
   return (
@@ -46,6 +47,9 @@ export default function Home() {
 
       {/* メリット８ */}
       <ReasonsSection />
+      
+      {/* スタジオツアー */}
+      <LiveStudioTourSection />
 
       {/* よくある質問 */}
       <FaqSection />

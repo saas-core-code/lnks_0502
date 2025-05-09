@@ -108,12 +108,22 @@ const ProfileCard = ({ profile, index }: { profile: typeof userProfiles[0], inde
 const UserProfileComponent = () => {
   return (
     <section 
-      className="w-full py-16 relative"
+      className="w-full relative"
       style={{
         backgroundColor: '#fefce8'
       }}
     >
-      {/* Fix: Set specific dimensions and add appropriate styling */}
+      <div className="w-full">
+        <Image
+          src="/images/user-voices/UserVoicesSection_3.png"
+          alt="ユーザーボイスヘッダー"
+          width={1200}
+          height={300}
+          className="w-full h-auto"
+          priority
+        />
+      </div>
+
       <div className="absolute left-0 top-0 h-full w-3/4 overflow-hidden">
         <div className="h-full relative">
           <Image
@@ -127,7 +137,7 @@ const UserProfileComponent = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-2 sm:px-4 space-y-12 relative z-10">
+      <div className="container mx-auto px-2 sm:px-4 space-y-8 relative z-10 pt-2 pb-16">
         {userProfiles.map((profile, index) => (
           <ProfileCard key={index} profile={profile} index={index} />
         ))}

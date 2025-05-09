@@ -2,6 +2,8 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import Image from "next/image";
+
 export default function IncomeStatisticsSection() {
   const ageData = [
     { name: "10代", value: 10, color: "#4A4A4A" },
@@ -10,18 +12,31 @@ export default function IncomeStatisticsSection() {
     { name: "40代", value: 20, color: "#d8debf" }
   ];
   const [pieRotation, setPieRotation] = useState(0);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setPieRotation(prev => (prev + 1) % 360);
     }, 50);
     return () => clearInterval(interval);
   }, []);
+
   return (
-    <section className="w-full py-16 bg-[#fefce8] overflow-hidden">
+    <section className="w-full bg-[#fefce8] overflow-hidden">
+      <div className="w-full pt-[40px] pb-[20px] flex justify-center">
+        <Image
+          src="/images/income-stats/IncomeStatisticsSection_1.png"
+          alt="収入統計ヘッダー"
+          width={1200}
+          height={300}
+          className="w-[75%] h-auto block"
+          priority
+        />
+      </div>
+
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           <motion.div 
-            className="bg-[#ccb296] rounded-2xl p-6 shadow-lg"
+            className="bg-[#ccb296] rounded-2xl p-6 shadow-lg mb-[40px]"
             initial={{ y: 50, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, type: "spring" }}
@@ -31,16 +46,6 @@ export default function IncomeStatisticsSection() {
               transition: { duration: 0.3 }
             }}
           >
-            <div className="text-center mb-6">
-              <motion.h2 
-                className="text-lg font-medium text-white font-rounded"
-                initial={{ scale: 0.9, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-              >
-                年齢層分布
-              </motion.h2>
-            </div>
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}

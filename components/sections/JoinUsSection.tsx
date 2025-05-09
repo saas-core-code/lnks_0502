@@ -102,10 +102,10 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ data, index }) => {
       y: 0,
       scale: 1,
       transition: {
-        duration: 1.5, // 2.0秒から1.5秒に変更
+        duration: 1.0, // 1.5秒から1.0秒に変更
         ease: [0.22, 1, 0.36, 1],
-        opacity: { duration: 3 },
-        scale: { duration: 2 }
+        opacity: { duration: 1.0 }, // 3秒から1.0秒に変更
+        scale: { duration: 1.0 }    // 2秒から1.0秒に変更
       }
     }
   };
@@ -171,7 +171,7 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ data, index }) => {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: false, margin: "-50px" }}
-                    className="text-sm p-4 rounded-xl text-white overflow-hidden mt-4"
+                    className="text-sm p-4 rounded-xl text-[#43302a] overflow-hidden mt-4"
                     style={{ 
                       background: 'linear-gradient(135deg, #ffc4a3 0%, #ffb391 100%)',
                       boxShadow: '0 8px 16px -4px rgba(255, 196, 163, 0.25)',

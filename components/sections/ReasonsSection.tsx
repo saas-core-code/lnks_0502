@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
@@ -47,9 +48,24 @@ export default function ReasonsSection() {
     },
   ];
   
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": reasonsData.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "ImageObject",
+        "contentUrl": item.src,
+        "name": item.title,
+        "description": item.alt
+      }
+    }))
+  };
+
   return (
     <section 
-      className="w-full pt-16 pb-10 overflow-hidden relative" 
+      className="w-full pt-8 pb-16 overflow-hidden relative" 
       aria-labelledby="reasons-section-title"
       style={{
         backgroundImage: "url('/images/reasons/ReasonsSection_bg.png')",
@@ -58,18 +74,104 @@ export default function ReasonsSection() {
         backgroundRepeat: 'no-repeat'
       }}
     >
-      <div className="container mx-auto px-2 max-w-full relative z-10">
-        <motion.h2 
-          id="reasons-section-title"
+      <div className="container mx-auto px-4 max-w-7xl relative z-10">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-3xl font-bold text-center mb-16"
+          className="w-full flex justify-center mb-8"
         >
-          メリット８
-        </motion.h2>
+          <motion.div 
+            className="w-[75%] max-w-[800px] relative group"
+            initial={{ scale: 0.95, y: 20 }}
+            animate={{ 
+              scale: [0.95, 1.02, 0.98],
+              y: [-10, 10, -5],
+              rotate: [-2, 2, -1],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              repeatType: "reverse",
+              ease: "easeInOut"
+            }}
+          >
+            {/* キラキラエフェクト */}
+            <motion.div
+              className="absolute -inset-4 bg-gradient-to-r from-pink-100 via-yellow-100 to-pink-100 opacity-30 blur-xl"
+              animate={{
+                scale: [1, 1.2, 1],
+                rotate: [0, 180, 360],
+              }}
+              transition={{
+                duration: 10,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "linear"
+              }}
+            />
+
+            {/* 波紋エフェクト */}
+            <motion.div
+              className="absolute inset-0 rounded-xl"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{
+                scale: [1, 1.2],
+                opacity: [0.5, 0],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeOut"
+              }}
+              style={{
+                border: "2px solid rgba(255, 255, 255, 0.3)",
+              }}
+            />
+
+            {/* メインの画像 */}
+            <motion.div
+              className="relative"
+              whileHover={{
+                scale: 1.02,
+                transition: { duration: 0.3 }
+              }}
+            >
+              <Image
+                src="/images/reasons/reason.png"
+                alt="メリット8のヘッダー画像"
+                width={1200}
+                height={300}
+                className="w-full h-auto relative z-10"
+                priority
+                style={{
+                  filter: "drop-shadow(0 10px 25px rgba(0,0,0,0.15))"
+                }}
+              />
+
+              {/* 動的な光の効果 */}
+              <motion.div
+                className="absolute inset-0 z-20"
+                animate={{
+                  background: [
+                    "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3) 0%, transparent 50%)",
+                    "radial-gradient(circle at 70% 70%, rgba(255,255,255,0.3) 0%, transparent 50%)",
+                    "radial-gradient(circle at 30% 70%, rgba(255,255,255,0.3) 0%, transparent 50%)",
+                    "radial-gradient(circle at 70% 30%, rgba(255,255,255,0.3) 0%, transparent 50%)",
+                  ]
+                }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  ease: "easeInOut"
+                }}
+              />
+            </motion.div>
+          </motion.div>
+        </motion.div>
         
-        <div className="grid grid-cols-2 auto-rows-max gap-4 md:gap-8 mb-4">
+        <div className="grid grid-cols-2 auto-rows-max gap-6 md:gap-8 px-2 md:px-4 mb-8">
           {reasonsData.map((item, index) => (
             <motion.article
               key={index}
@@ -114,23 +216,10 @@ export default function ReasonsSection() {
         </div>
       </div>
       
-      <script
+      <script 
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            "itemListElement": reasonsData.map((item, index) => ({
-              "@type": "ListItem",
-              "position": index + 1,
-              "item": {
-                "@type": "ImageObject",
-                "contentUrl": item.src,
-                "name": item.title,
-                "description": item.alt
-              }
-            }))
-          })
+          __html: JSON.stringify(jsonLd)
         }}
       />
     </section>

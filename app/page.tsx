@@ -54,11 +54,13 @@ export default function Home() {
       {/* よくある質問 */}
       <FaqSection />
 
+      {/* バナー（入店祝金） */}
+       <WelcomeBonusBanner />
+      
       {/* 応募フォーム */}
       <ApplicationFlowSection />
 
       {/* バナー（いったん非表示） */}
-      {false && <WelcomeBonusBanner />}
       {false && <LineApplyBanner />}
       {false && <SnsLinksBanner />}
       <FixedFooterBanner />

@@ -45,19 +45,26 @@ const data = [
 
 export default function BenefitComparisonSection() {
   return (
-    <section className="w-full overflow-x-hidden relative" style={{
-      backgroundImage: 'linear-gradient(0deg, #f4f6e9 1px, transparent 1px), linear-gradient(90deg, #f4f6e9 1px, transparent 1px), linear-gradient(0deg, #f4f6e9 0.5px, transparent 0.5px), linear-gradient(90deg, #f4f6e9 0.5px, transparent 0.5px)',
-      backgroundSize: '30px 30px, 30px 30px, 6px 6px, 6px 6px',
-      backgroundColor: 'white'
-    }}>
-      <div className="w-full px-4 md:container md:mx-auto">
-        <div className="relative flex justify-center items-center mb-8">
+    <section className="w-full overflow-x-hidden relative flex justify-center">
+      {/* 背景要素 - 最大幅960pxに制限 */}
+      <div 
+        className="absolute h-full max-w-[960px] w-full"
+        style={{
+          backgroundImage: 'linear-gradient(0deg, #f4f6e9 1px, transparent 1px), linear-gradient(90deg, #f4f6e9 1px, transparent 1px), linear-gradient(0deg, #f4f6e9 0.5px, transparent 0.5px), linear-gradient(90deg, #f4f6e9 0.5px, transparent 0.5px)',
+          backgroundSize: '30px 30px, 30px 30px, 6px 6px, 6px 6px',
+          backgroundColor: 'white'
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="relative w-full max-w-[960px] px-4 md:container md:mx-auto z-10">
+        <div className="relative flex justify-center items-center mb-8 max-w-[960px] mx-auto">
           <Image
             src="/images/benefit-comparison/BenefitComparisonSection.png"
             alt="選ばれる理由"
-            width={1200}
-            height={800}
-            className="w-full h-auto"
+            width={960}
+            height={640}
+            className="w-full h-auto max-w-full"
             priority
           />
         </div>

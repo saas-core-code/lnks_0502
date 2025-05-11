@@ -85,89 +85,93 @@ export default function ChoiceReasonsSection() {
   };
 
   return (
-    <section className="w-full bg-white relative overflow-hidden">
-      {/* 背景画像 */}
-      <motion.div
-        variants={backgroundVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="relative w-full"
-        style={{ paddingBottom: `${(bgHeight / bgWidth) * 100}%` }}
-      >
-        <Image
-          src="/images/choice-reasons/ChoiceReasonsSection.png"
-          alt="選ばれる理由 背景"
-          fill
-          className="object-contain"
-          priority
-        />
-        
-        {/* キラキラエフェクト */}
+    <section className="w-full bg-white flex justify-center overflow-hidden">
+      <div className="w-full max-w-[960px] relative">
+        {/* 背景画像 */}
         <motion.div
-          className="absolute inset-0"
-          animate={{
-            background: [
-              "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, transparent 50%)",
-              "radial-gradient(circle at 70% 70%, rgba(255,255,255,0.2) 0%, transparent 50%)",
-              "radial-gradient(circle at 30% 70%, rgba(255,255,255,0.2) 0%, transparent 50%)",
-              "radial-gradient(circle at 70% 30%, rgba(255,255,255,0.2) 0%, transparent 50%)",
-            ]
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            repeatType: "reverse"
-          }}
-        />
-      </motion.div>
-
-      {/* オーバーレイ画像 */}
-      <div className="absolute inset-0">
-        {overlays.map((o, i) => (
+          variants={backgroundVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="relative w-full"
+          style={{ paddingBottom: `${(bgHeight / bgWidth) * 100}%` }}
+        >
+          <Image
+            src="/images/choice-reasons/ChoiceReasonsSection.png"
+            alt="選ばれる理由 背景"
+            fill
+            className="object-contain"
+            sizes="(max-width: 960px) 100vw, 960px"
+            priority
+          />
+          
+          {/* キラキラエフェクト */}
           <motion.div
-            key={o.src}
-            className="absolute"
-            style={{
-              left: `${o.leftPct}%`,
-              top: `${o.topPct}%`,
-              width: `${o.widthPct}%`,
-              height: `${o.heightPct}%`,
+            className="absolute inset-0"
+            animate={{
+              background: [
+                "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, transparent 50%)",
+                "radial-gradient(circle at 70% 70%, rgba(255,255,255,0.2) 0%, transparent 50%)",
+                "radial-gradient(circle at 30% 70%, rgba(255,255,255,0.2) 0%, transparent 50%)",
+                "radial-gradient(circle at 70% 30%, rgba(255,255,255,0.2) 0%, transparent 50%)",
+              ]
             }}
-            custom={i}
-            variants={overlayVariants}
-            initial="hidden"
-            whileInView="visible"
-            whileHover="hover"
-            viewport={{ once: true }}
-          >
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              repeatType: "reverse"
+            }}
+          />
+        </motion.div>
+
+        {/* オーバーレイ画像 */}
+        <div className="absolute inset-0">
+          {overlays.map((o, i) => (
             <motion.div
-              className="w-full h-full relative"
-              animate={{
-                y: [0, -10, 0],
-                filter: ["drop-shadow(0 5px 15px rgba(0,0,0,0.2))", "drop-shadow(0 15px 25px rgba(0,0,0,0.3))", "drop-shadow(0 5px 15px rgba(0,0,0,0.2))"]
+              key={o.src}
+              className="absolute"
+              style={{
+                left: `${o.leftPct}%`,
+                top: `${o.topPct}%`,
+                width: `${o.widthPct}%`,
+                height: `${o.heightPct}%`,
               }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                repeatType: "reverse",
-                ease: "easeInOut",
-                delay: i * 0.3
-              }}
+              custom={i}
+              variants={overlayVariants}
+              initial="hidden"
+              whileInView="visible"
+              whileHover="hover"
+              viewport={{ once: true }}
             >
-              <Image
-                src={o.src}
-                alt={o.alt}
-                fill
-                className="object-contain"
-                style={{
-                  filter: "drop-shadow(0 5px 15px rgba(0,0,0,0.2))"
+              <motion.div
+                className="w-full h-full relative"
+                animate={{
+                  y: [0, -10, 0],
+                  filter: ["drop-shadow(0 5px 15px rgba(0,0,0,0.2))", "drop-shadow(0 15px 25px rgba(0,0,0,0.3))", "drop-shadow(0 5px 15px rgba(0,0,0,0.2))"]
                 }}
-                priority
-              />
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  ease: "easeInOut",
+                  delay: i * 0.3
+                }}
+              >
+                <Image
+                  src={o.src}
+                  alt={o.alt}
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 960px) 100vw, 960px"
+                  style={{
+                    filter: "drop-shadow(0 5px 15px rgba(0,0,0,0.2))"
+                  }}
+                  priority
+                />
+              </motion.div>
             </motion.div>
-          </motion.div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

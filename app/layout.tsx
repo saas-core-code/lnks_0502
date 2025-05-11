@@ -16,9 +16,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
-      <body className="font-sans antialiased">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+      </head>
+      <body className="font-sans antialiased overflow-x-hidden w-full">
         <Header />
-        <main>{children}</main>
+        <main className="overflow-x-hidden w-full">{children}</main>
         <Footer />
       </body>
     </html>

@@ -108,7 +108,7 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ data, index }) => {
 
   return (
     <>
-      <div className="w-full max-w-[960px] mx-auto px-4 sm:px-6 py-0.5"> {/* カード間の余白を最小限に */}
+      <div className="w-full py-0.5"> {/* カード間の余白を最小限に */}
         <div className="relative flex flex-col">
           {/* カードの左側のオレンジライン */}
           <div className="absolute left-0 top-2 bottom-2 w-6 bg-[#FAD4C0] rounded-l-xl"></div>
@@ -241,7 +241,7 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ data, index }) => {
 
 const Timeline: React.FC = () => {
   return (
-    <div className="w-full">
+    <div className="max-w-[960px] mx-auto px-4 sm:px-6 bg-white">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

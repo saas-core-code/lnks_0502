@@ -27,14 +27,22 @@ export default function RoomGallerySection() {
     <section
       id="room-gallery"
       aria-labelledby="room-gallery-title"
-      style={{
-        backgroundColor: '#F5ADBC',
-        backgroundImage: 'radial-gradient(circle, rgba(139, 69, 19, 0.08) 1px, transparent 1px)',
-        backgroundSize: '6px 6px'
-      }}
       className="w-full flex justify-center pt-[30px] relative overflow-hidden"
     >
-      <div className="w-full max-w-[960px] mx-auto flex flex-col items-center">
+      {/* 背景用のコンテナ - 幅を制限し中央に配置 */}
+      <div 
+        className="absolute w-full max-w-[960px] h-full top-0"
+        style={{
+          backgroundColor: '#F5ADBC',
+          backgroundImage: 'radial-gradient(circle, rgba(139, 69, 19, 0.08) 1px, transparent 1px)',
+          backgroundSize: '6px 6px',
+          left: '50%',
+          transform: 'translateX(-50%)'
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="w-full max-w-[960px] mx-auto flex flex-col items-center relative z-10">
         <h2 id="room-gallery-title" className="sr-only">快適な作業環境ギャラリー</h2>
 
         <div

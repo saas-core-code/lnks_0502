@@ -24,18 +24,20 @@ export default function HeroSection() {
         aria-label="お知らせ"
         role="banner"
         className={`
-          fixed top-[32px] left-0 right-0
+          fixed top-[32px] inset-x-0
           bg-black/50
           z-40
           transition-transform duration-300
           ${isVisible ? "translate-y-0" : "-translate-y-full"}
         `}
       >
-        <Marquee speed={50} gradient={false} pauseOnHover={false}>
-          <span className="text-white text-[10px] px-2 whitespace-nowrap">
-            ようこそ！最高のサービスと快適な環境をご提供いたします。
-          </span>
-        </Marquee>
+        <div className="w-full max-w-[960px] mx-auto">
+          <Marquee speed={50} gradient={false} pauseOnHover={false}>
+            <span className="text-white text-[10px] px-2 whitespace-nowrap">
+              ようこそ！最高のサービスと快適な環境をご提供いたします。
+            </span>
+          </Marquee>
+        </div>
       </div>
 
       {/* メインビジュアル（ヒーロー動画） */}
@@ -43,21 +45,23 @@ export default function HeroSection() {
         className="w-full pt-[40px] relative overflow-hidden"
         aria-label="メインビジュアル"
       >
-        <h1 className="sr-only">ウェルカムページ</h1>
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full max-w-[960px] h-auto object-cover mx-auto"
-          aria-describedby="hero-video-description"
-        >
-          <source src="/videos/hero_427.webm" type="video/webm" />
-          <source src="/videos/hero_427.mp4" type="video/mp4" />
-          <p id="hero-video-description">
-            お使いのブラウザは HTML5 ビデオに対応していません。
-          </p>
-        </video>
+        <div className="w-full max-w-[960px] mx-auto">
+          <h1 className="sr-only">ウェルカムページ</h1>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-auto object-cover"
+            aria-describedby="hero-video-description"
+          >
+            <source src="/videos/hero_427.webm" type="video/webm" />
+            <source src="/videos/hero_427.mp4" type="video/mp4" />
+            <p id="hero-video-description">
+              お使いのブラウザは HTML5 ビデオに対応していません。
+            </p>
+          </video>
+        </div>
       </section>
     </>
   );

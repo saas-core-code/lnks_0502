@@ -18,22 +18,17 @@ import LiveStudioTourSection from '@/components/sections/LiveStudioTourSection';
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen pb-[120px]">
+    <div className="flex flex-col min-h-screen pb-0">  {/* pb-[120px] を pb-0 に変更 */}
       {/* ヒーロー（興味喚起） */}
       <HeroSection />
-
       {/* カルーセル（こだわりまくり事務所） */}
       <RoomGallerySection />
-
       {/* 共感（こんな悩みありませんか？） */}
       <PainPointsSection />
-
       {/* 解決策の提示 */}
       <SolutionSection />
-
       {/* 選ばれる理由 */}
       <BenefitComparisonSection />
-
       {/* 円グラフ */}
       {/* 統計データーカード式４つ */}
       <IncomeStatisticsSection />
@@ -41,28 +36,28 @@ export default function Home() {
       
       {/* 先輩の口コミ3名 */}
       <UserVoicesSection />
-
       {/* ライバーの１日の流れ */}
       <JoinUsSection />
-
       {/* メリット８ */}
       <ReasonsSection />
       
       {/* スタジオツアー */}
       <LiveStudioTourSection />
-
       {/* よくある質問 */}
       <FaqSection />
-
       {/* バナー（入店祝金） */}
        <WelcomeBonusBanner />
       
       {/* 応募フォーム */}
       <ApplicationFlowSection />
 
+   {/* バナー（入店祝金） */}
+       <WelcomeBonusBanner />
+      
       {/* バナー（いったん非表示） */}
       {false && <LineApplyBanner />}
       {false && <SnsLinksBanner />}
+      
       <FixedFooterBanner />
     </div>
   );

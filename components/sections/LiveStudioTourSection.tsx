@@ -1,7 +1,9 @@
 "use client";
+
 import Image from "next/image";
 import { motion, useScroll, useTransform, Variants } from "framer-motion";
 import { useRef } from "react";
+import { ChevronDown } from "lucide-react";
 
 export default function LiveStudioTourSection() {
   const ref = useRef<HTMLElement>(null);
@@ -119,8 +121,8 @@ export default function LiveStudioTourSection() {
         </h2>
       </motion.div>
 
-      {/* メインコンテンツ */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 pb-20 md:pb-24">
+      {/* メインコンテンツ - 幅を960pxに制限 */}
+      <div className="relative z-10 w-full max-w-[960px] mx-auto px-4 pb-20 md:pb-24">
         {/* バナー */}
         <motion.div
           className="relative bg-white/40 backdrop-blur-sm p-6 md:p-8 rounded-2xl shadow-xl mb-16 overflow-hidden"
@@ -227,30 +229,38 @@ export default function LiveStudioTourSection() {
         </motion.div>
       </div>
 
-      {/* スクロールインジケーター */}
-      <motion.div
-        className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-20"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: [0.4, 1, 0.4], y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
-        aria-hidden="true"
-      >
-        <svg
-          width="28"
-          height="28"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+      {/* スクロールインジケーター - 2つのChevronDownアイコンを追加 */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center gap-2">
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ 
+            opacity: [0.4, 1, 0.4],
+            y: [0, 10, 0]
+          }}
+          transition={{ 
+            repeat: Infinity,
+            duration: 1.5,
+            ease: "easeInOut"
+          }}
         >
-          <path
-            d="M12 5v14M18 13l-6 6-6-6"
-            stroke="white"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </motion.div>
+          <ChevronDown className="w-6 h-6 text-white" />
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ 
+            opacity: [0.4, 1, 0.4],
+            y: [0, 10, 0]
+          }}
+          transition={{ 
+            repeat: Infinity,
+            duration: 1.5,
+            ease: "easeInOut",
+            delay: 0.2
+          }}
+        >
+          <ChevronDown className="w-6 h-6 text-white" />
+        </motion.div>
+      </div>
     </section>
   );
 }

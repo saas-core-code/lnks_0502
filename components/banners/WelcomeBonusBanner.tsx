@@ -1,16 +1,15 @@
 "use client";
-
 import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default function WelcomeBonusBanner() {
   return (
-    <div className="w-full bg-white p-4">
+    <div className="w-full bg-[#F4CDC7] p-4"> {/* bg-whiteをbg-[#F6A995]に変更 */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="relative w-full max-w-5xl mx-auto"
+        className="relative w-full max-w-[960px] mx-auto"
       >
         <motion.div
           whileHover={{ scale: 1.02 }}
@@ -47,7 +46,6 @@ export default function WelcomeBonusBanner() {
               repeatType: "reverse"
             }}
           />
-
           {/* グラデーション縁取り */}
           <motion.div
             className="absolute inset-0"
@@ -62,7 +60,6 @@ export default function WelcomeBonusBanner() {
               maskComposite: "exclude"
             }}
           />
-
           {/* 光の波紋エフェクト */}
           <motion.div
             className="absolute inset-0"

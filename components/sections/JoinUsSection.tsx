@@ -3,7 +3,7 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Star, Sparkles } from 'lucide-react';
 
 interface TimelineItem {
   time: string;
@@ -89,40 +89,36 @@ const timelineData: TimelineItem[] = [
 const TimelineCard: React.FC<TimelineCardProps> = ({ data, index }) => {
   const ref = useRef<HTMLDivElement>(null);
   
-  const cardDelay = index * 0.05;
-
-  const orangeCardVariants = {
+  const cardVariants = {
     hidden: { 
       opacity: 0,
-      y: 20,
-      scale: 0.95
+      x: index % 2 === 0 ? -50 : 50,
+      y: 20
     },
     visible: { 
       opacity: 1,
+      x: 0,
       y: 0,
-      scale: 1,
       transition: {
-        duration: 1.0, // 1.5秒から1.0秒に変更
-        ease: [0.22, 1, 0.36, 1],
-        opacity: { duration: 1.0 }, // 3秒から1.0秒に変更
-        scale: { duration: 1.0 }    // 2秒から1.0秒に変更
+        duration: 0.6,
+        ease: "easeOut"
       }
     }
   };
 
   return (
     <>
-      <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 py-4">
+      <div className="w-full max-w-[960px] mx-auto px-4 sm:px-6 py-0.5"> {/* カード間の余白を最小限に */}
         <div className="relative flex flex-col">
           {/* カードの左側のオレンジライン */}
           <div className="absolute left-0 top-2 bottom-2 w-6 bg-[#FAD4C0] rounded-l-xl"></div>
           
           <motion.div
             ref={ref}
-            initial={{ y: 30, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
+            variants={cardVariants}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: false, margin: "-50px" }}
-            transition={{ duration: 0.3, delay: cardDelay }}
             className="ml-6 bg-white rounded-xl shadow-lg overflow-hidden"
           >
             <div className="p-4">
@@ -167,11 +163,22 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ data, index }) => {
                   </motion.div>
                   
                   <motion.div
-                    variants={orangeCardVariants}
+                    variants={{
+                      hidden: { opacity: 0, y: 20, scale: 0.95 },
+                      visible: { 
+                        opacity: 1,
+                        y: 0,
+                        scale: 1,
+                        transition: {
+                          duration: 0.6,
+                          ease: "easeOut"
+                        }
+                      }
+                    }}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: false, margin: "-50px" }}
-                    className="text-sm p-4 rounded-xl text-[#43302a] overflow-hidden mt-4"
+                    className="text-sm p-4 rounded-xl text-white overflow-hidden mt-4"
                     style={{ 
                       background: 'linear-gradient(135deg, #ffc4a3 0%, #ffb391 100%)',
                       boxShadow: '0 8px 16px -4px rgba(255, 196, 163, 0.25)',
@@ -187,16 +194,46 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ data, index }) => {
         </div>
       </div>
       
-      {/* 下向き矢印（最後のカード以外に表示） */}
+      {/* 最適化された小さな矢印アニメーション */}
       {index < timelineData.length - 1 && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: cardDelay + 0.2 }}
-          className="flex justify-center"
-        >
-          <ChevronDown size={32} className="text-[#ffc4a3]" />
-        </motion.div>
+        <div className="relative flex flex-col items-center" style={{ height: "35px" }}> {/* 高さを最小限に */}
+          {/* 3つの矢印が連続して流れるアニメーション */}
+          {[0, 0.9, 1.8].map((delay, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ 
+                opacity: [0, 0.85, 0],
+                y: [-5, 12, 30], // 移動距離を最小限に
+                scale: [0.85, 1, 0.85]
+              }}
+              transition={{ 
+                repeat: Infinity,
+                duration: 2.8,
+                ease: "easeInOut",
+                delay: delay,
+                times: [0, 0.4, 1]
+              }}
+              className="absolute"
+            >
+              <svg 
+                width="22" // 最小サイズ
+                height="12" // 最小サイズ
+                viewBox="0 0 40 24" 
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path 
+                  d="M3 3C8.33333 8.33333 13.6667 13.6667 19 19C24.3333 13.6667 29.6667 8.33333 35 3" 
+                  stroke="#ffc4a3" 
+                  strokeWidth="4"
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </motion.div>
+          ))}
+        </div>
       )}
     </>
   );

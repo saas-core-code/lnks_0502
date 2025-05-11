@@ -13,41 +13,53 @@ function SpinningNumber({ value, unit }: { value: number; unit: string }) {
 
   useEffect(() => {
     if (isInView && !hasAnimated) {
-      if (animationRef.current) {
-        animationRef.current.stop();
-      }
-
+      animationRef.current?.stop();
+      
       animationRef.current = animate(count, value, {
         duration: 2,
-        ease: "easeOut",
-        onComplete: () => {
-          setHasAnimated(true);
-        }
+        ease: "circOut",
+        onComplete: () => setHasAnimated(true)
       });
     }
-    return () => {
-      if (animationRef.current) {
-        animationRef.current.stop();
-      }
-    };
+    return () => animationRef.current?.stop();
   }, [isInView, value, count, hasAnimated]);
 
   return (
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true }}
+      viewport={{ once: true, amount: 0.5 }}
       onViewportEnter={() => setIsInView(true)}
       variants={{
-        hidden: { opacity: 0 },
-        visible: { opacity: 1 }
+        hidden: { opacity: 0, y: 20, scale: 0.9 },
+        visible: { 
+          opacity: 1, 
+          y: 0, 
+          scale: 1,
+          transition: { 
+            duration: 0.6,
+            ease: "easeOut"
+          }
+        }
       }}
-      className="flex items-baseline"
+      className="flex items-baseline justify-center"
     >
-      <motion.span className="text-4xl font-bold font-rounded bg-clip-text text-transparent bg-gradient-to-r from-[#ccb296] to-[#ffc4a3]">
+      <motion.span 
+        className="text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#ccb296] to-[#ffc4a3]"
+        style={{
+          textShadow: "0 2px 4px rgba(0,0,0,0.1)"
+        }}
+      >
         {rounded}
       </motion.span>
-      <span className="text-lg ml-1 text-gray-600 font-rounded">{unit}</span>
+      <motion.span 
+        className="text-base sm:text-lg ml-1 text-gray-600"
+        initial={{ opacity: 0, x: -10 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.2, duration: 0.4 }}
+      >
+        {unit}
+      </motion.span>
     </motion.div>
   );
 }
@@ -61,7 +73,7 @@ export default function IncomeStatisticsSection_2() {
       unit: "人",
       color: "#ccb296",
       direction: "right",
-      gradient: "from-[#ccb296] to-[#ffc4a3]"
+      gradient: "from-[#ccb296] to-[#ffc4a3]",
     },
     {
       icon: Heart,
@@ -70,7 +82,7 @@ export default function IncomeStatisticsSection_2() {
       unit: "%",
       color: "#ffc4a3",
       direction: "left",
-      gradient: "from-[#ffc4a3] to-[#fefce8]"
+      gradient: "from-[#ffc4a3] to-[#fefce8]",
     },
     {
       icon: DollarSign,
@@ -79,7 +91,7 @@ export default function IncomeStatisticsSection_2() {
       unit: "万円",
       color: "#fefce8",
       direction: "right",
-      gradient: "from-[#fefce8] to-[#d8debf]"
+      gradient: "from-[#fefce8] to-[#d8debf]",
     },
     {
       icon: Sparkles,
@@ -88,97 +100,122 @@ export default function IncomeStatisticsSection_2() {
       unit: "%",
       color: "#d8debf",
       direction: "left",
-      gradient: "from-[#d8debf] to-[#ccb296]"
-    }
+      gradient: "from-[#d8debf] to-[#ccb296]",
+    },
   ];
 
   return (
-    <section className="w-full bg-[#fefce8] overflow-hidden py-12">
-      <div className="container mx-auto px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-            {statsCards.map((card, index) => (
-              <motion.div
-                key={card.label}
-                initial={{ 
-                  opacity: 0, 
-                  x: card.direction === "right" ? 100 : -100,
-                  rotateY: card.direction === "right" ? 45 : -45
-                }}
-                whileInView={{ 
-                  opacity: 1, 
-                  x: 0,
-                  rotateY: 0
-                }}
-                viewport={{ once: true }}
-                transition={{
+    <section className="w-full bg-[#fefce8] overflow-hidden py-12 flex justify-center">
+      <div className="w-full max-w-[960px] mx-auto px-4">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+          {statsCards.map((card, index) => (
+            <motion.div
+              key={card.label}
+              initial={{
+                opacity: 0,
+                y: 20,
+                scale: 0.95
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+                scale: 1
+              }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{
+                type: "spring",
+                stiffness: 100,
+                damping: 15,
+                mass: 1,
+                delay: index * 0.1
+              }}
+              whileHover={{
+                y: -8,
+                scale: 1.02,
+                transition: {
                   type: "spring",
-                  stiffness: 100,
-                  damping: 20,
-                  delay: index * 0.1
-                }}
-                whileHover={{ 
-                  scale: 1.05,
-                  y: -10,
-                  transition: {
-                    duration: 0.3,
-                    ease: "easeOut"
-                  }
-                }}
-                className="bg-white rounded-2xl p-6 shadow-lg relative overflow-hidden transform-gpu hover:shadow-2xl transition-all duration-300"
-              >
-                <div className={`absolute inset-0 p-[2px] rounded-2xl bg-gradient-to-r ${card.gradient}/20`}>
-                  <div className="w-full h-full bg-white rounded-2xl" />
-                </div>
-
+                  stiffness: 400,
+                  damping: 10
+                }
+              }}
+              className="relative overflow-hidden rounded-2xl p-4 sm:p-6 shadow-lg transition-all duration-300 transform-gpu bg-white/80 backdrop-blur-sm h-[180px] sm:h-[200px]"
+            >
+              {/* Gradient border */}
+              <motion.div
+                className={`absolute inset-0 p-[2px] bg-gradient-to-r ${card.gradient}/20 rounded-2xl`}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: index * 0.1 + 0.3 }}
+              />
+              
+              <div className="relative z-10 bg-white/90 backdrop-blur-sm rounded-2xl p-3 sm:p-4 h-full flex flex-col">
                 <motion.div
-                  initial={{ scale: 0.5, opacity: 0 }}
-                  whileInView={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: index * 0.1 + 0.3 }}
-                  className="relative z-10"
+                  className="flex items-center justify-between mb-3"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 + 0.2 }}
                 >
-                  <div className="flex items-center justify-between mb-4">
-                    <card.icon 
-                      size={24} 
-                      className={`bg-gradient-to-r ${card.gradient} p-1 rounded-lg text-white`}
-                      aria-label={card.label}
+                  <motion.div
+                    whileHover={{ 
+                      scale: 1.1,
+                      rotate: [0, -10, 10, 0],
+                      transition: {
+                        duration: 0.3,
+                        ease: "easeInOut"
+                      }
+                    }}
+                  >
+                    <card.icon
+                      size={20}
+                      className={`p-1 rounded-lg text-white bg-gradient-to-r ${card.gradient} shadow-lg sm:w-6 sm:h-6`}
                     />
-                    <motion.div
-                      animate={{ 
-                        scale: [1, 1.2, 1],
-                        rotate: [0, 5, -5, 0]
-                      }}
-                      transition={{ 
-                        duration: 2,
-                        repeat: Infinity,
-                        repeatDelay: 1
-                      }}
-                      className={`w-2 h-2 rounded-full bg-gradient-to-r ${card.gradient}`}
-                    />
-                  </div>
-                  <h3 className="text-sm font-medium text-gray-600 mb-2 font-rounded">
-                    {card.label}
-                  </h3>
-                  <SpinningNumber value={card.value} unit={card.unit} />
+                  </motion.div>
+                  <motion.div
+                    animate={{
+                      scale: [1, 1.2, 1],
+                      opacity: [0.5, 1, 0.5]
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                    className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gradient-to-r ${card.gradient} shadow-sm`}
+                  />
                 </motion.div>
+                
+                <motion.h3
+                  className="text-xs sm:text-sm font-medium text-gray-600 mb-2 text-center flex-grow"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 + 0.3 }}
+                >
+                  {card.label}
+                </motion.h3>
+                
+                <SpinningNumber value={card.value} unit={card.unit} />
+              </div>
 
-                <motion.div
-                  className="absolute inset-0 z-0 opacity-10"
-                  animate={{ 
-                    rotate: [0, 360],
-                    scale: [1, 1.2, 1]
-                  }}
-                  transition={{ 
-                    rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                    scale: { duration: 3, repeat: Infinity, ease: "easeInOut" }
-                  }}
-                  style={{
-                    background: `conic-gradient(from 0deg at 50% 50%, transparent, ${card.color}, transparent)`
-                  }}
-                />
-              </motion.div>
-            ))}
-          </div>
+              {/* Ambient background animation */}
+              <motion.div
+                className="absolute inset-0 z-0 opacity-5"
+                animate={{
+                  background: [
+                    `radial-gradient(circle at 30% 30%, ${card.color}, transparent 70%)`,
+                    `radial-gradient(circle at 70% 70%, ${card.color}, transparent 70%)`,
+                    `radial-gradient(circle at 30% 70%, ${card.color}, transparent 70%)`,
+                    `radial-gradient(circle at 70% 30%, ${card.color}, transparent 70%)`
+                  ]
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  ease: "easeInOut"
+                }}
+              />
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

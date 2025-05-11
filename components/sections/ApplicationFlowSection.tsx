@@ -58,7 +58,7 @@ export default function ApplicationFlowSection() {
 
   return (
     <section 
-      className="w-full py-16 relative" 
+      className="w-full pt-16 pb-[40px] relative" 
       style={{
         backgroundImage: "url('/images/application-flow/ApplicationFlowSection.png')",
         backgroundSize: 'cover',

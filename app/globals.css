@@ -18,6 +18,11 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 60px;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

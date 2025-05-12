@@ -5,14 +5,14 @@ import { motion } from 'framer-motion';
 
 export default function Footer() {
   const menuItems = [
-    { label: 'トップ', href: '/' },
-    { label: 'お仕事内容', href: '#work' },
-    { label: '報酬のご説明', href: '#earnings' },
-    { label: '女の子の声', href: '#voices' },
-    { label: '店内環境', href: '#environment' },
-    { label: 'スタッフ紹介', href: '#staff' },
-    { label: 'よくある質問', href: '#faq' },
-    { label: '会社概要', href: '#company' }
+    { label: 'トップ', href: '/#top' },
+    { label: 'お仕事内容', href: '/#about' },
+    { label: '報酬のご説明', href: '/#rewards' },
+    { label: '女の子の声', href: '/#voices' },
+    { label: '店内環境', href: '/#studio' },
+    { label: 'スタッフ紹介', href: '/#staff' },
+    { label: 'よくある質問', href: '/#faq' },
+    { label: '会社概要', href: '/#company' }
   ];
   
   return (

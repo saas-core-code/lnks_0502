@@ -48,6 +48,7 @@ export default function SolutionSection() {
               height={800}
               className="w-full h-auto"
               priority
+              unoptimized
             />
           </motion.div>
 
@@ -66,6 +67,7 @@ export default function SolutionSection() {
               height={400}
               className="w-full h-full object-contain"
               priority
+              unoptimized
             />
           </motion.div>
 
@@ -80,7 +82,6 @@ export default function SolutionSection() {
               ] }}
             transition={{ duration: 4, repeat: Infinity, repeatType: "reverse" }}
           />
-
         </motion.div>
 
         {/* オーバーレイ画像 */}
@@ -104,6 +105,7 @@ export default function SolutionSection() {
                 height={300}
                 className="w-full h-auto"
                 style={{ filter: "drop-shadow(0 15px 20px rgba(0,0,0,0.15))" }}
+                unoptimized
               />
             </motion.div>
           </motion.div>
@@ -118,6 +120,7 @@ export default function SolutionSection() {
           width={1200}
           height={800}
           className="w-full h-auto"
+          unoptimized
         />
       </div>
     </section>

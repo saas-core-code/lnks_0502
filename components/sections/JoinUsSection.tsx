@@ -108,9 +108,8 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ data, index }) => {
 
   return (
     <>
-      <div className="w-full py-0.5"> {/* カード間の余白を最小限に */}
+      <div className="w-full py-0.5">
         <div className="relative flex flex-col">
-          {/* カードの左側のオレンジライン */}
           <div className="absolute left-0 top-2 bottom-2 w-6 bg-[#FAD4C0] rounded-l-xl"></div>
           
           <motion.div
@@ -194,17 +193,15 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ data, index }) => {
         </div>
       </div>
       
-      {/* 最適化された小さな矢印アニメーション */}
       {index < timelineData.length - 1 && (
-        <div className="relative flex flex-col items-center" style={{ height: "35px" }}> {/* 高さを最小限に */}
-          {/* 3つの矢印が連続して流れるアニメーション */}
+        <div className="relative flex flex-col items-center" style={{ height: "35px" }}>
           {[0, 0.9, 1.8].map((delay, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: -5 }}
               animate={{ 
                 opacity: [0, 0.85, 0],
-                y: [-5, 12, 30], // 移動距離を最小限に
+                y: [-5, 12, 30],
                 scale: [0.85, 1, 0.85]
               }}
               transition={{ 
@@ -217,8 +214,8 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ data, index }) => {
               className="absolute"
             >
               <svg 
-                width="22" // 最小サイズ
-                height="12" // 最小サイズ
+                width="22"
+                height="12"
                 viewBox="0 0 40 24" 
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -239,32 +236,32 @@ const TimelineCard: React.FC<TimelineCardProps> = ({ data, index }) => {
   );
 };
 
-const Timeline: React.FC = () => {
+export default function Timeline() {
   return (
-    <div className="max-w-[960px] mx-auto px-4 sm:px-6 bg-white">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="w-full"
-      >
-        <Image
-          src="/images/join-us/joinus.png"
-          alt="1日のスケジュール"
-          width={1200}
-          height={300}
-          className="w-full h-auto"
-          priority
-        />
-      </motion.div>
-      
-      <div className="relative">
-        {timelineData.map((item, index) => (
-          <TimelineCard key={index} data={item} index={index} />
-        ))}
+    <section id="about" className="w-full bg-white overflow-hidden pt-8 pb-12 flex justify-center">
+      <div className="max-w-[960px] mx-auto px-4 sm:px-6 bg-white">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="w-full"
+        >
+          <Image
+            src="/images/join-us/joinus.png"
+            alt="1日のスケジュール"
+            width={1200}
+            height={300}
+            className="w-full h-auto"
+            priority
+          />
+        </motion.div>
+        
+        <div className="relative">
+          {timelineData.map((item, index) => (
+            <TimelineCard key={index} data={item} index={index} />
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
-};
-
-export default Timeline;
+}

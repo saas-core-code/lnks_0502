@@ -15,59 +15,44 @@ import WelcomeBonusBanner from '@/components/banners/WelcomeBonusBanner';
 import SnsLinksBanner from '@/components/banners/SnsLinksBanner';
 import FixedFooterBanner from '@/components/banners/FixedFooterBanner';
 import LiveStudioTourSection from '@/components/sections/LiveStudioTourSection';
+import BlogSummarySection from '@/components/sections/BlogSummarySection';
+import { client } from '@/libs/microcms';
 
-export default function Home() {
+async function getLatestBlogs() {
+  const data = await client.getList({
+    endpoint: 'blogs',
+    queries: {
+      limit: 3,
+      orders: '-publishedAt'
+    }
+  });
+  return data.contents;
+}
+
+export default async function Home() {
+  const latestBlogs = await getLatestBlogs();
+
   return (
     <div className="flex flex-col min-h-screen pb-0">
-      {/* ヒーロー（興味喚起） */}
       <HeroSection />
-      
-      {/* カルーセル（こだわりまくり事務所） */}
       <RoomGallerySection />
-      
-      {/* 共感（こんな悩みありませんか？） */}
       <PainPointsSection />
-      
-      {/* 解決策の提示 */}
       <SolutionSection />
-      
-      {/* 選ばれる理由 */}
       <BenefitComparisonSection />
-      
-      {/* 円グラフ */}
-      {/* 統計データーカード式４つ */}
       <IncomeStatisticsSection />
       <IncomeStatisticsSection_2 />
-      
-      {/* 先輩の口コミ3名 */}
       <UserVoicesSection />
-      
-      {/* ライバーの１日の流れ */}
       <JoinUsSection />
-      
-      {/* メリット８ */}
       <ReasonsSection />
-      
-      {/* スタジオツアー */}
       <LiveStudioTourSection />
-      
-      {/* よくある質問 */}
-       <FaqSection />
-      
-      {/* バナー（入店祝金） - これを非表示にする */}
+      <BlogSummarySection blogs={latestBlogs} />
+      <FaqSection />
       {false && <WelcomeBonusBanner />}
-      
-      {/* 応募フォーム */}
       <ApplicationFlowSection />
-      
-      {/* バナー（入店祝金） - 2つ目のWelcomeBonusBannerはそのまま */}
       {false && <WelcomeBonusBanner />}
-      
-      {/* バナー（いったん非表示） */}
       {false && <LineApplyBanner />}
       {false && <SnsLinksBanner />}
-      
-        <FixedFooterBanner />
+      <FixedFooterBanner />
     </div>
   );
 }

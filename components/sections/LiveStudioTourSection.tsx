@@ -56,6 +56,7 @@ export default function LiveStudioTourSection() {
 
   return (
     <section
+      id="studio"
       ref={ref}
       className="relative overflow-hidden flex flex-col items-center justify-start bg-[#FCEADE]"
       style={{ minHeight: "100vh" }}

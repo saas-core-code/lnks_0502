@@ -37,6 +37,7 @@ export default function ReasonsSection() {
   return (
     <div className="flex justify-center w-full bg-white">
       <section
+        id="staff"
         className="w-full max-w-[960px] pt-8 pb-16 overflow-hidden relative mx-auto"
         aria-labelledby="reasons-section-title"
         style={{

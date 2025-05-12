@@ -21,7 +21,7 @@ export default function IncomeStatisticsSection() {
   }, []);
 
   return (
-    <section className="w-full bg-[#fefce8] overflow-hidden">
+    <section id="rewards" className="w-full bg-[#fefce8] overflow-hidden">
       <div className="w-full pt-[40px] pb-[20px] flex justify-center">
         <Image
           src="/images/income-stats/IncomeStatisticsSection_1.png"

@@ -54,7 +54,7 @@ const faqs = [
 
 export default function FaqSection() {
   return (
-    <section className="w-full flex justify-center">
+    <section id="faq" className="w-full flex justify-center">
       <div 
         className="w-full max-w-[960px] relative"
         style={{

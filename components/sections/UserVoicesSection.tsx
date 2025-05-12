@@ -86,7 +86,7 @@ const ProfileCard = ({ profile, index }: { profile: typeof userProfiles[0]; inde
 
 export default function UserProfileComponent() {
   return (
-    <section className="w-full bg-[#fefce8] overflow-hidden pt-8 pb-12 flex justify-center">
+    <section id="voices" className="w-full bg-[#fefce8] overflow-hidden pt-8 pb-12 flex justify-center">
       <div className="w-full max-w-[960px] mx-auto px-4 relative">
         {/* ヘッダー画像 */}
         <div className="w-full mb-4">

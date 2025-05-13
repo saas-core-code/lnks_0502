@@ -20,18 +20,18 @@ export default function BlogSummarySection({ blogs }: Props) {
   };
 
   return (
-    <section className="w-full flex justify-center bg-gradient-to-b from-white to-pink-50/30 py-16">
+    <section className="w-full flex justify-center bg-[#F86F62] py-16">
       <div className="w-full max-w-[960px] px-4">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-3xl font-bold text-center mb-12 text-[#4a4a4a]"
+          className="text-3xl font-bold text-center mb-12 text-white"
         >
           <span className="relative inline-block">
             新着ブログ
             <motion.span
-              className="absolute -right-8 -top-6 text-pink-400"
+              className="absolute -right-8 -top-6 text-white"
               animate={{ rotate: [0, 15, -15, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
@@ -59,7 +59,7 @@ export default function BlogSummarySection({ blogs }: Props) {
                 >
                   {blog.eyecatch && (
                     <div className="relative w-full sm:w-48 h-48 rounded-lg overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-tr from-pink-200/30 to-transparent z-10" />
+                      <div className="absolute inset-0 bg-gradient-to-tr from-[#F86F62]/30 to-transparent z-10" />
                       <Image
                         src={blog.eyecatch.url}
                         alt={blog.title}
@@ -72,33 +72,33 @@ export default function BlogSummarySection({ blogs }: Props) {
                   
                   <div className="flex-1 relative">
                     <div className="flex items-center gap-2 mb-2">
-                      <Clock size={14} className="text-[#ffc4a3]" />
-                      <time className="text-sm text-[#ffc4a3] font-medium">
+                      <Clock size={14} className="text-[#F86F62]" />
+                      <time className="text-sm text-[#F86F62] font-medium">
                         {formatDate(blog.publishedAt)}
                       </time>
                     </div>
                     
-                    <h3 className="text-lg font-bold mb-3 text-[#4a4a4a] group-hover:text-[#ffc4a3] transition-colors duration-300 line-clamp-2">
+                    <h3 className="text-lg font-bold mb-3 text-[#F86F62] group-hover:opacity-80 transition-colors duration-300 line-clamp-2">
                       {blog.title}
                     </h3>
                     
                     <div className="prose prose-sm text-gray-600 line-clamp-2 mb-4">
-                      {blog.content.replace(/<[^>]*>/g, '').substring(0, 100)}...
+                      {blog.content?.replace(/<[^>]*>/g, '').substring(0, 100)}...
                     </div>
                     
-                    <div className="flex items-center text-[#ffc4a3] text-sm font-medium group-hover:translate-x-1 transition-transform duration-300">
+                    <div className="flex items-center text-[#F86F62] text-sm font-medium group-hover:translate-x-1 transition-transform duration-300">
                       続きを読む
                       <ChevronRight size={16} className="ml-1" />
                     </div>
 
                     {/* Decorative elements */}
-                    <div className="absolute -right-2 -bottom-2 w-20 h-20 bg-gradient-to-tr from-pink-100/40 to-transparent rounded-full blur-xl group-hover:scale-150 transition-transform duration-500" />
+                    <div className="absolute -right-2 -bottom-2 w-20 h-20 bg-gradient-to-tr from-[#F86F62]/10 to-transparent rounded-full blur-xl group-hover:scale-150 transition-transform duration-500" />
                   </div>
                 </motion.div>
               </Link>
               
               {index < blogs.length - 1 && (
-                <div className="border-b border-dotted border-[#ffc4a3]/30 mt-6" />
+                <div className="border-b border-dotted border-white/30 mt-6" />
               )}
             </motion.div>
           ))}

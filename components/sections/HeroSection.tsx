@@ -43,7 +43,7 @@ export default function HeroSection() {
       {/* メインビジュアル（ヒーロー動画） */}
       <section
         id="top"
-        className="w-full pt-[40px] relative overflow-hidden"
+        className="w-full pt-[60px] relative overflow-hidden" // pt-[40px]から[60px]に変更
         aria-label="メインビジュアル"
       >
         <div className="w-full max-w-[960px] mx-auto">

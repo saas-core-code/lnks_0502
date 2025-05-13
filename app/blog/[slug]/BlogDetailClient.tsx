@@ -17,7 +17,7 @@ export default function BlogDetailClient({ blog }: Props) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="container mx-auto px-4 py-8"
+        className="container mx-auto px-4 pt-20 pb-8"
       >
         <Link 
           href="/blog"

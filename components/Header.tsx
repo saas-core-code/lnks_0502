@@ -1,7 +1,7 @@
 "use client";
-
 import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface Section {
   id: string;
@@ -20,10 +20,16 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // フッターのリンクとIDを合わせる
   const sections: Section[] = [
-    { id: 'top',      name: 'トップ' },
-    { id: 'work',     name: 'お仕事内容' },
-    { id: 'earnings', name: '報酬のご説明' },
+    { id: 'top',     name: 'トップ' },
+    { id: 'about',   name: 'お仕事内容' },
+    { id: 'rewards', name: '報酬のご説明' },
+    { id: 'voices',  name: '女の子の声' },
+    { id: 'studio',  name: '店内環境' },
+    { id: 'staff',   name: 'スタッフ紹介' },
+    { id: 'faq',     name: 'よくある質問' },
+    { id: 'company', name: '会社概要' },
   ];
 
   return (
@@ -31,7 +37,7 @@ export default function Header() {
       <header
         className={`
           w-full 
-          py-1                /* 上下 padding: 4px */
+          py-1
           shadow-sm 
           fixed top-0 z-50 
           transition-all duration-300 
@@ -63,29 +69,41 @@ export default function Header() {
         onClick={() => setIsMenuOpen(false)}
       />
 
-      {/* モバイルメニュー */}
+      {/* モバイルメニュー - 1列に変更 */}
       <nav 
         className={`
           fixed top-0 right-0 h-full w-64 bg-white shadow-lg z-50 
           transform transition-transform duration-300 ease-in-out 
           ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}
+          overflow-y-auto
         `}
       >
-        <div className="p-3">
-          <h2 className="text-xs font-medium mb-2">セクション一覧</h2>
-          <ul className="space-y-1">
-            {sections.map((s) => (
-              <li key={s.id} className="border-b border-gray-100">
-                <a
+        <div className="p-4">
+          <h2 className="text-xs font-medium mb-3 text-gray-700">セクション一覧</h2>
+          
+          {/* フッターのスタイルを継承しつつ、1列に変更 */}
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg p-[1px] overflow-hidden" style={{
+            background: 'linear-gradient(45deg, #ffd1dc, #ffb6c1, #ffd1dc)'
+          }}>
+            <div className="bg-white/95 rounded-2xl flex flex-col">
+              {sections.map((s, idx) => (
+                <motion.a
+                  key={s.id}
                   href={`#${s.id}`}
-                  className="block py-1 text-[10px] text-gray-800 hover:text-gray-600"
+                  whileHover={{ scale: 0.98 }}
+                  className={`
+                    flex items-center justify-center py-3 text-sm text-gray-800
+                    hover:text-pink-500 transition-all duration-200
+                    ${idx > 0 ? 'border-t border-pink-100' : ''}
+                    hover:bg-gradient-to-r hover:from-pink-50 hover:to-transparent
+                  `}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {s.name}
-                </a>
-              </li>
-            ))}
-          </ul>
+                </motion.a>
+              ))}
+            </div>
+          </div>
         </div>
       </nav>
     </>

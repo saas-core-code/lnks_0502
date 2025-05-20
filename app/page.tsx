@@ -1,6 +1,14 @@
 import HeroSection from '@/components/sections/HeroSection';
 import RoomGallerySection from '@/components/sections/RoomGallerySection';
 import Manga1Section from '@/components/sections/Manga1Section';
+import Manga2Section from '@/components/sections/Manga2Section';
+import Manga3Section from '@/components/sections/Manga3Section';
+import Manga4Section from '@/components/sections/Manga4Section';
+import Manga5Section from '@/components/sections/Manga5Section';
+import Manga6Section from '@/components/sections/Manga6Section';
+import Manga7Section from '@/components/sections/Manga7Section';
+import Manga8Section from '@/components/sections/Manga8Section';
+import Manga9Section from '@/components/sections/Manga9Section';
 import PainPointsSection from '@/components/sections/PainPointsSection';
 import SolutionSection from '@/components/sections/SolutionSection';
 import JoinUsSection from '@/components/sections/JoinUsSection';
@@ -38,13 +46,14 @@ export default async function Home() {
       <HeroSection />
       <RoomGallerySection />
       <Manga1Section />
-      <Manga1Section />
-      <Manga1Section />
-      <Manga1Section />
-      <Manga1Section />
-      <Manga1Section />
-      <Manga1Section />
-      <Manga1Section />
+      <Manga2Section />
+      <Manga3Section />
+      <Manga4Section />
+      <Manga5Section />
+      <Manga6Section />
+      <Manga7Section />
+      <Manga8Section />
+      <Manga9Section />
       <PainPointsSection />
       <SolutionSection />
       <BenefitComparisonSection />

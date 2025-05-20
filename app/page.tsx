@@ -1,5 +1,6 @@
 import HeroSection from '@/components/sections/HeroSection';
 import RoomGallerySection from '@/components/sections/RoomGallerySection';
+import Manga1Section from '@/components/sections/Manga1Section';
 import PainPointsSection from '@/components/sections/PainPointsSection';
 import SolutionSection from '@/components/sections/SolutionSection';
 import JoinUsSection from '@/components/sections/JoinUsSection';
@@ -36,6 +37,14 @@ export default async function Home() {
     <div className="flex flex-col min-h-screen pb-0">
       <HeroSection />
       <RoomGallerySection />
+      <Manga1Section />
+      <Manga1Section />
+      <Manga1Section />
+      <Manga1Section />
+      <Manga1Section />
+      <Manga1Section />
+      <Manga1Section />
+      <Manga1Section />
       <PainPointsSection />
       <SolutionSection />
       <BenefitComparisonSection />
